@@ -23,7 +23,7 @@ body {
 
 .form-main {
     display: grid;
-    grid-template-columns: 1fr 240px;
+    grid-template-columns: max-content 240px;
     column-gap: 2rem;
     row-gap: 1.5rem;
 }
@@ -127,6 +127,7 @@ body {
 .form-section select {
     padding: 6px 8px;
     font-size: 1rem;
+    width: 160px;
 }
 
 .checkboxes {
