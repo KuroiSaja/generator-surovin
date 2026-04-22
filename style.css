@@ -22,10 +22,16 @@ body {
    ========================= */
 
 .form-main {
-    position: relative;
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
+}
+
+.form-inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    width: fit-content;
 }
 
 /* =========================
