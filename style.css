@@ -22,14 +22,11 @@ body {
    ========================= */
 
 .form-main {
-    display: grid;
-    grid-template-columns: max-content 240px;
-    column-gap: 2rem;
-    row-gap: 1.5rem;
-}
-
-.form-main > *:not(.pj-panel) {
-    grid-column: 1;
+    position: relative;
+    padding-right: calc(240px + 2rem);
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
 }
 
 /* =========================
@@ -37,15 +34,14 @@ body {
    ========================= */
 
 .pj-panel {
-    grid-column: 2;
-    grid-row: 1 / -1;
-    align-self: start;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 240px;
     border: 1px solid #ddd;
     border-radius: 10px;
     padding: 1rem;
     background: #f9f9f9;
-    position: sticky;
-    top: 1.5rem;
 }
 
 .pj-header {
@@ -98,13 +94,10 @@ body {
 
 @media (max-width: 600px) {
     .form-main {
-        display: flex;
-        flex-direction: column;
+        padding-right: 0;
     }
 
     .pj-panel {
-        grid-column: unset;
-        grid-row: unset;
         position: static;
         width: 100%;
     }
