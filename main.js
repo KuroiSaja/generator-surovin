@@ -162,6 +162,7 @@ function renderResult(result) {
 
         const li = document.createElement("li");
         li.dataset.rarity = item.rarity;
+        if (item.type) li.dataset.type = item.type;
 
         let text = `<strong>${name}</strong> × ${item.count}`;
 

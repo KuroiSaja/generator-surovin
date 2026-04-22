@@ -487,22 +487,31 @@ input[type="checkbox"] {
 }
 
 /* =========================
-   RARITY COLORS
+   TYPE COLORS
    ========================= */
 
-.result li[data-rarity="common"] {
-    background: #ede0bc;
-    border-left-color: #7d9a50;
+.result li[data-type="rostlina"] {
+    background: #d8eac4;
+    border-left-color: #5a8a30;
 }
 
-.result li[data-rarity="uncommon"] {
-    background: #d8e8d4;
-    border-left-color: #4a7a55;
+.result li[data-type="fauna"] {
+    background: #e2cfb4;
+    border-left-color: #8a6035;
 }
 
+.result li[data-type="nerost"] {
+    background: #d2d8de;
+    border-left-color: #7a8898;
+}
+
+.result li[data-type="houba"] {
+    background: #ddd0ea;
+    border-left-color: #7a55a0;
+}
+
+/* rare = tučně bez ohledu na typ */
 .result li[data-rarity="rare"] {
-    background: #f0e0a0;
-    border-left-color: var(--border-gold);
     font-weight: bold;
 }
 
