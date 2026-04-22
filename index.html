@@ -15,62 +15,54 @@
 
     <div class="form-main">
 
-        <div class="form-inputs">
+        <section class="form-section">
+            <label>
+                Prostředí
+                <select id="environmentSelect" name="environment" required>
+                    <!-- naplní JS -->
+                </select>
+            </label>
 
-            <section class="form-section">
-                <label>
-                    Prostředí
-                    <select id="environmentSelect" name="environment" required>
-                        <!-- naplní JS -->
-                    </select>
-                </label>
+            <label>
+                Roční období
+                <select name="season" required>
+                    <option value="jaro">Jaro</option>
+                    <option value="léto">Léto</option>
+                    <option value="podzim">Podzim</option>
+                    <option value="zima">Zima</option>
+                </select>
+            </label>
 
-                <label>
-                    Roční období
-                    <select name="season" required>
-                        <option value="jaro">Jaro</option>
-                        <option value="léto">Léto</option>
-                        <option value="podzim">Podzim</option>
-                        <option value="zima">Zima</option>
-                    </select>
-                </label>
+            <label class="toggle-switch toggle-inline">
+                <input type="checkbox" id="tagsEnabled">
+                <span class="toggle-slider"></span>
+                <span class="toggle-label">Zvláštní podmínky</span>
+            </label>
+        </section>
 
-                <label class="toggle-switch toggle-inline">
-                    <input type="checkbox" id="tagsEnabled" checked>
-                    <span class="toggle-slider"></span>
-                    <span class="toggle-label">Zvláštní podmínky</span>
-                </label>
-            </section>
+        <section class="form-section">
+            <label>
+                Score (d10 + Znalost přírody + INT)
+                <input type="number" name="score" min="1" required>
+            </label>
 
-            <section class="form-section">
-                <label>
-                    Score (d10 + Znalost přírody + INT)
-                    <input type="number" name="score" min="1" required>
-                </label>
+            <label>
+                Počet hodin
+                <input type="number" name="hours" min="1" required>
+            </label>
+        </section>
 
-                <label>
-                    Počet hodin
-                    <input type="number" name="hours" min="1" required>
-                </label>
-            </section>
+        <section class="form-section checkboxes">
+            <label>
+                <input type="checkbox" name="critical">
+                Kritický úspěch
+            </label>
 
-            <section class="form-section checkboxes">
-                <label>
-                    <input type="checkbox" name="critical">
-                    Kritický úspěch
-                </label>
-
-                <label>
-                    <input type="checkbox" name="criticalFail">
-                    Kritický neúspěch
-                </label>
-            </section>
-
-            <section class="tag-section">
-                <div id="tagContainer"></div>
-            </section>
-
-        </div>
+            <label>
+                <input type="checkbox" name="criticalFail">
+                Kritický neúspěch
+            </label>
+        </section>
 
         <div class="pj-panel">
             <div class="pj-header">
@@ -95,6 +87,10 @@
                 </fieldset>
             </div>
         </div>
+
+        <section class="tag-section">
+            <div id="tagContainer" hidden></div>
+        </section>
 
     </div>
 
