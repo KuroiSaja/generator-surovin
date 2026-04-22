@@ -67,10 +67,6 @@
    TAGS
    ========================= */
 
-.tag-section h2 {
-    margin-bottom: 0.5rem;
-}
-
 .toggle-switch {
     display: flex;
     align-items: center;
