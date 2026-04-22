@@ -21,7 +21,6 @@
             </select>
         </label>
 
-
         <label>
             Roční období
             <select name="season" required>
@@ -30,6 +29,12 @@
                 <option value="podzim">Podzim</option>
                 <option value="zima">Zima</option>
             </select>
+        </label>
+
+        <label class="toggle-switch toggle-inline">
+            <input type="checkbox" id="tagsEnabled" checked>
+            <span class="toggle-slider"></span>
+            <span class="toggle-label">Tagy oblasti</span>
         </label>
     </section>
 
@@ -58,14 +63,7 @@
     </section>
 
     <section class="tag-section">
-        <div class="tag-section-header">
-            <h2>Tagy oblasti</h2>
-            <label class="toggle-switch">
-                <input type="checkbox" id="tagsEnabled" checked>
-                <span class="toggle-slider"></span>
-                <span class="toggle-label">Použít tagy</span>
-            </label>
-        </div>
+        <h2>Tagy oblasti</h2>
         <div id="tagContainer"></div>
     </section>
 

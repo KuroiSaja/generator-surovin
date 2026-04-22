@@ -67,15 +67,8 @@
    TAGS
    ========================= */
 
-.tag-section-header {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
+.tag-section h2 {
     margin-bottom: 0.5rem;
-}
-
-.tag-section-header h2 {
-    margin: 0;
 }
 
 .toggle-switch {
@@ -123,6 +116,12 @@
 .toggle-label {
     font-size: 0.9rem;
     color: #555;
+}
+
+.toggle-inline {
+    justify-content: flex-start;
+    align-self: flex-end;
+    padding-bottom: 6px;
 }
 
 .tag-category {
