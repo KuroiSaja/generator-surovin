@@ -66,6 +66,10 @@
                 </label>
             </section>
 
+            <section class="tag-section">
+                <div id="tagContainer" hidden></div>
+            </section>
+
         </div>
 
         <div class="pj-panel">
@@ -92,19 +96,16 @@
             </div>
         </div>
 
-        <section class="tag-section">
-            <div id="tagContainer" hidden></div>
-        </section>
-
     </div>
 
-    <button type="submit" class="primary-btn">
-        Generovat nález
-    </button>
+    <div class="action-panel">
+        <button type="submit" class="primary-btn">
+            Generovat nález
+        </button>
+        <section id="result" class="result"></section>
+    </div>
 
 </form>
-
-<section id="result" class="result"></section>
 
 <script src="generator.js"></script>
 <script src="main.js"></script>
