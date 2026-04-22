@@ -295,6 +295,14 @@ document.addEventListener("DOMContentLoaded", async () => {
         tagContainer.hidden = !tagsEnabled.checked;
     });
 
+    // 4️⃣ PJ mode
+    const pjEnabled = document.getElementById("pjEnabled");
+    const pjOptions = document.getElementById("pjOptions");
+
+    pjEnabled.addEventListener("change", () => {
+        pjOptions.hidden = !pjEnabled.checked;
+    });
+
     // 4️⃣ Form submit
     const form = document.getElementById("generatorForm");
     
@@ -337,6 +345,9 @@ document.addEventListener("DOMContentLoaded", async () => {
         const selectedTagIds = tagsEnabled.checked ? getSelectedTags(form) : [];
         const selectedTagNames = selectedTagIds.map(id => (TAG_ID_TO_NAME[id] ?? id).toLowerCase());
 
+        const baseMin = pjEnabled.checked ? (parseInt(document.getElementById("pjMinPerHour").value) || 1) : 1;
+        const baseMax = pjEnabled.checked ? (parseInt(document.getElementById("pjMaxPerHour").value) || 3) : 3;
+
         const result = generate(
             INGREDIENTS,
             data.get("environment"),
@@ -345,7 +356,9 @@ document.addEventListener("DOMContentLoaded", async () => {
             hours,
             critical && !criticalFail,
             criticalFail,
-            selectedTagNames
+            selectedTagNames,
+            baseMin,
+            baseMax
         );
 
         result.inputs.tags = selectedTagIds;

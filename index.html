@@ -13,58 +13,90 @@
 
 <form id="generatorForm" class="generator-form">
 
-    <section class="form-section">
-        <label>
-            Prostředí
-            <select id="environmentSelect" name="environment" required>
-                <!-- naplní JS -->
-            </select>
-        </label>
+    <div class="form-main">
 
-        <label>
-            Roční období
-            <select name="season" required>
-                <option value="jaro">Jaro</option>
-                <option value="léto">Léto</option>
-                <option value="podzim">Podzim</option>
-                <option value="zima">Zima</option>
-            </select>
-        </label>
+        <div class="form-inputs">
 
-        <label class="toggle-switch toggle-inline">
-            <input type="checkbox" id="tagsEnabled" checked>
-            <span class="toggle-slider"></span>
-            <span class="toggle-label">Zvláštní podmínky</span>
-        </label>
-    </section>
+            <section class="form-section">
+                <label>
+                    Prostředí
+                    <select id="environmentSelect" name="environment" required>
+                        <!-- naplní JS -->
+                    </select>
+                </label>
 
-    <section class="form-section">
-        <label>
-            Score (d10 + Znalost přírody + INT)  
-            <input type="number" name="score" min="1" required>
-        </label>
+                <label>
+                    Roční období
+                    <select name="season" required>
+                        <option value="jaro">Jaro</option>
+                        <option value="léto">Léto</option>
+                        <option value="podzim">Podzim</option>
+                        <option value="zima">Zima</option>
+                    </select>
+                </label>
 
-        <label>
-            Počet hodin
-            <input type="number" name="hours" min="1" required>
-        </label>
-    </section>
+                <label class="toggle-switch toggle-inline">
+                    <input type="checkbox" id="tagsEnabled" checked>
+                    <span class="toggle-slider"></span>
+                    <span class="toggle-label">Zvláštní podmínky</span>
+                </label>
+            </section>
 
-    <section class="form-section checkboxes">
-        <label>
-            <input type="checkbox" name="critical">
-            Kritický úspěch
-        </label>
+            <section class="form-section">
+                <label>
+                    Score (d10 + Znalost přírody + INT)
+                    <input type="number" name="score" min="1" required>
+                </label>
 
-        <label>
-            <input type="checkbox" name="criticalFail">
-            Kritický neúspěch
-        </label>
-    </section>
+                <label>
+                    Počet hodin
+                    <input type="number" name="hours" min="1" required>
+                </label>
+            </section>
 
-    <section class="tag-section">
-        <div id="tagContainer"></div>
-    </section>
+            <section class="form-section checkboxes">
+                <label>
+                    <input type="checkbox" name="critical">
+                    Kritický úspěch
+                </label>
+
+                <label>
+                    <input type="checkbox" name="criticalFail">
+                    Kritický neúspěch
+                </label>
+            </section>
+
+            <section class="tag-section">
+                <div id="tagContainer"></div>
+            </section>
+
+        </div>
+
+        <aside class="pj-panel">
+            <div class="pj-header">
+                <span class="pj-title">PJ mode</span>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="pjEnabled">
+                    <span class="toggle-slider"></span>
+                </label>
+            </div>
+            <div id="pjOptions" hidden>
+                <fieldset class="pj-group">
+                    <legend>Nálezy za hodinu</legend>
+                    <label>
+                        Základní min
+                        <input type="number" id="pjMinPerHour" value="1" min="0">
+                    </label>
+                    <label>
+                        Základní max
+                        <input type="number" id="pjMaxPerHour" value="3" min="1">
+                    </label>
+                    <p class="pj-hint">Za každých 5 bodů score se rozsah posune o +1</p>
+                </fieldset>
+            </div>
+        </aside>
+
+    </div>
 
     <button type="submit" class="primary-btn">
         Generovat nález
