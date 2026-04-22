@@ -67,8 +67,62 @@
    TAGS
    ========================= */
 
-.tag-section h2 {
+.tag-section-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
     margin-bottom: 0.5rem;
+}
+
+.tag-section-header h2 {
+    margin: 0;
+}
+
+.toggle-switch {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    user-select: none;
+}
+
+.toggle-switch input {
+    display: none;
+}
+
+.toggle-slider {
+    width: 40px;
+    height: 22px;
+    background: #ccc;
+    border-radius: 22px;
+    position: relative;
+    transition: background 0.2s;
+    flex-shrink: 0;
+}
+
+.toggle-slider::after {
+    content: "";
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    background: #fff;
+    border-radius: 50%;
+    top: 3px;
+    left: 3px;
+    transition: left 0.2s;
+}
+
+.toggle-switch input:checked + .toggle-slider {
+    background: #2c3e50;
+}
+
+.toggle-switch input:checked + .toggle-slider::after {
+    left: 21px;
+}
+
+.toggle-label {
+    font-size: 0.9rem;
+    color: #555;
 }
 
 .tag-category {
@@ -77,6 +131,7 @@
 
 .tag-grid {
     display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
     gap: 0.3rem 0.6rem;
 }
 
@@ -100,6 +155,11 @@
 .result li {
     padding: 0.4rem 0.6rem;
     border-radius: 6px;
+}
+
+.empty-result {
+    font-style: italic;
+    opacity: 0.6;
 }
 
 .usage {

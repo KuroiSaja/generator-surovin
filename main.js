@@ -19,8 +19,6 @@ async function loadTags() {
     const res = await fetch("data/tags.json");
     const tags = await res.json();
 
-    console.log("LOAD TAGS CALLED");
-
     TAGS_BY_CATEGORY = {};
     TAG_ID_TO_NAME = {};
 
@@ -35,23 +33,10 @@ async function loadTags() {
         const name = tag.tag_name;
 
         TAGS_BY_CATEGORY[cat].push({ id, name });
-        TAG_ID_TO_NAME[id] = name; // 👈 KLÍČOVÝ ŘÁDEK
+        TAG_ID_TO_NAME[id] = name;
     }
-
-    console.log("TAG_ID_TO_NAME AFTER LOAD:", TAG_ID_TO_NAME);
 }
 
-function buildTagIdMap() {
-    const map = {};
-
-    for (const tags of Object.values(TAGS_BY_CATEGORY)) {
-        for (const tag of tags) {
-            map[tag.id] = tag.name;
-        }
-    }
-
-    return map;
-}
 
 function extractEnvironments(ingredients) {
     const set = new Set();
@@ -124,9 +109,6 @@ function renderResult(result) {
     const el = document.getElementById("result");
     el.innerHTML = "";
 
-    console.log("RENDER TAG MAP:", TAG_ID_TO_NAME);
-    console.log("RENDER INPUT TAGS:", result.inputs.tags);
-    
     if (!result) return;
 
     /* =========================
@@ -183,8 +165,6 @@ function renderResult(result) {
 
         let text = `<strong>${name}</strong> × ${item.count}`;
 
-        console.log("USAGE TEST:", item.usage);
-
         const details = [];
         if (item.type) details.push(`typ: ${item.type}`);
         if (item.mana) details.push(`mana: ${item.mana}`);
@@ -208,16 +188,20 @@ function renderResult(result) {
         ul.appendChild(li);
     }
 
-    el.appendChild(ul);
+    if (ul.childElementCount === 0) {
+        const empty = document.createElement("p");
+        empty.className = "empty-result";
+        empty.textContent = "Nenašel jsi nic užitečného.";
+        el.appendChild(empty);
+    } else {
+        el.appendChild(ul);
+    }
 
     /* =========================
        KRITICKÝ NÁLEZ
        ========================= */
 
     if (result.rare) {
-        console.log("CRITICAL RAW OBJECT:", result.rare);
-        console.log("CRITICAL TYPE:", result.rare.type);
-
         const hr = document.createElement("hr");
         el.appendChild(hr);
 
@@ -274,10 +258,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         loadTags()
     ]);
 
-    console.log("INGREDIENTS LOADED:", INGREDIENTS.length);
-    console.log("MAIN.JS VERSION:", "2026-02-01-A");
-
-
     // 2️⃣ Naplň prostředí do selectu
     const envSelect = document.getElementById("environmentSelect");
 
@@ -307,6 +287,13 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     // 3️⃣ Tagy
     renderTags();
+
+    const tagsEnabled = document.getElementById("tagsEnabled");
+    const tagContainer = document.getElementById("tagContainer");
+
+    tagsEnabled.addEventListener("change", () => {
+        tagContainer.hidden = !tagsEnabled.checked;
+    });
 
     // 4️⃣ Form submit
     const form = document.getElementById("generatorForm");
@@ -346,15 +333,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         const critical = criticalCheckbox.checked;
         const criticalFail = criticalFailCheckbox.checked;
-        
-        if (critical && criticalFail) {
-            console.warn("Obě kritiky aktivní – UI chyba, opravuji");
-        }
 
-        const selectedTags = getSelectedTags(form);
-
-        console.log("SELECTED TAG IDS:", selectedTags);
-
+        const selectedTagIds = tagsEnabled.checked ? getSelectedTags(form) : [];
+        const selectedTagNames = selectedTagIds.map(id => (TAG_ID_TO_NAME[id] ?? id).toLowerCase());
 
         const result = generate(
             INGREDIENTS,
@@ -364,8 +345,10 @@ document.addEventListener("DOMContentLoaded", async () => {
             hours,
             critical && !criticalFail,
             criticalFail,
-            selectedTags
+            selectedTagNames
         );
+
+        result.inputs.tags = selectedTagIds;
 
         renderResult(result);
     });

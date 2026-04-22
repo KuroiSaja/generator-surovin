@@ -1,66 +1,110 @@
-# Generování surovin – přehled
+# Generátor surovin – Dračí hlídka
 
-## 1. Co se v okolí nachází
+Webový nástroj pro hru Dračí hlídka. Vypravěč zadá prostředí, roční období, score postavy (d10 + Znalost přírody + INT) a počet hodin hledání. Nástroj vygeneruje obecné suroviny a konkrétní nálezy s přihlédnutím k tagům oblasti (denní doba, speciální podmínky prostředí) a případnému kritickému úspěchu či neúspěchu.
 
-Shoda prostředí a ročního období určuje možnost výskytu v okolí (zařazení do poolu):
+---
 
-| Stav | Šance |
-|---|---|
-| Oboje | 100% |
-| Pouze jedno | 30% |
-| Nic | 5% |
+## 1. Pool – co se v okolí nachází
+
+Každá surovina má definované prostředí a roční období. Shoda určuje pravděpodobnost zařazení do poolu pro danou oblast:
+
+| Prostředí | Sezóna | Šance vstupu do poolu |
+|---|---|---|
+| Ano | Ano | 100 % |
+| Jedno z nich | – | 30 % |
+| Ani jedno | – | 5 % |
 
 ### Tagy
 
-Požadované podmínky (required tag) musí být splněny, jinak se surovina vůbec nevyskytuje.
+**Required tag** – pokud podmínka není splněna, surovina se nevyskytuje vůbec.
 
-Zakázané podmínky (forbid tag) výskyt zcela znemožňují.
+**Forbid tag** – pokud podmínka platí, surovina je zcela vyloučena.
 
-Specific tag může:
+**Specific tag** – pokud podmínka platí:
+- prostředí souhlasí → surovina je do poolu zařazena vždy (100 %)
+- prostředí nesouhlasí → specific tag prostředí nahradí (surovina se stále může objevit)
 
-- zajistit výskyt (env = ano, specific tag = ano)
-- nebo nahradit prostředí (env = ne, specific tag = ano)
+Specific tag zároveň zvyšuje váhu při výběru o násobitel **1,6×**.
+
+---
 
 ## 2. Kolik se toho najde
 
 ### Obecné suroviny
 
-score (d10 + Znalost přírody + INT) * počet hodin
+```
+obecné suroviny = score × počet hodin
+```
 
-### Konkrétní suroviny
+### Konkrétní nálezy
 
-Vyšší score zvyšuje možný počet nálezů za hodinu.
+Počet výběrů za hodinu závisí na score. Za každých 5 bodů nad 5 se rozsah posune o 1:
 
-| score | Nálezy / 1H |
+| Score | Nálezy / hodinu |
 |---|---|
-| 1–4 | Nic |
+| 1–4 | 0 (nic) |
 | 5–9 | 1–3 |
 | 10–14 | 2–4 |
-|  | Atd... |
+| 15–19 | 3–5 |
+| 20–24 | 4–6 |
+| … | … +1 každých 5 bodů |
 
-## 3. Co je skutečně nalezeno
+Celkový počet výběrů = nálezy/hodinu × počet hodin.
 
-Vzácnost (jak často je surovina vybírána)
+---
 
-| Rarity | Základní váha |
+## 3. Co je nalezeno – váhy rarity
+
+Každý výběr je vážený náhodný výběr z poolu. Základní váhy:
+
+| Rarita | Váha |
 |---|---|
-| Common | 1.00 |
-| Uncommon | 0.35 |
-| Rare | 0.12 |
+| Common | 1,00 |
+| Uncommon | 0,35 |
+| Rare | 0,12 |
 
-### Opakované nálezy
+### Clustering (opakované nálezy)
 
-Pokud se najde jedna pampeliška zvedne se šance (váha) o nález druhé a pak se to postupně snižuje.
+Pokud se surovina již jednou našla, její váha se upraví:
+
+| Počet nálezů | Úprava váhy |
+|---|---|
+| 1. nález | základní váha |
+| 2. nález | váha × (1 + 3,0 × základní váha) |
+| 3. nález | váha × 1,2 |
+| 4. nález | váha × 1 / (1 + 0,7) ≈ × 0,59 |
+| 5. nález | váha × 1 / (1 + 1,4) ≈ × 0,42 |
+| … | klesá dál |
+
+Příklad pro common (váha 1,0): 2. nález má váhu **4,0** – silný peak, bohaté naleziště.
+
+---
 
 ## 4. Kritický úspěch
 
-Kritický úspěch přináší jeden výrazný nález:
+Přináší jeden výrazný nález vybraný váženým losem:
 
-- neobvyklou surovinu
-- vzácnou surovinu (méně často)
-- abstrakní nález (suroviny)
-- abstraktní magický nález (mana)
+| Nález | Váha |
+|---|---|
+| Uncommon surovina | 1,0 |
+| Rare surovina | 0,25 |
+| Abstraktní nález (mana) | 1,0 |
+| Abstraktní nález (suroviny) | 1,0 |
+
+Rozsahy abstraktních nálezů:
+
+```
+mana:     max((score − 10) × 5,  5)  až  max((score − 5) × 5,  mana_min)
+suroviny: max((score − 10) × 10, 10) až  max((score − 5) × 10, sur_min)
+```
+
+---
 
 ## 5. Kritický neúspěch
 
-Všechny získané suroviny (konkrétní i obecné) jsou sníženy na polovinu zaokrouhleno dolů.
+Všechny výsledky jsou sníženy na polovinu (zaokrouhleno dolů):
+
+```
+obecné suroviny = floor(score × hodiny / 2)
+každý konkrétní nález = floor(počet / 2)
+```

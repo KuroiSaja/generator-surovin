@@ -79,9 +79,6 @@ function buildPool(ingredients, environment, season, selectedTags) {
         if (!requiredOk) continue;
 
         // 2️⃣ forbid tag
-        for (const tag of forbidTags) {
-            if (selectedTagSet.has(tag)) continue;
-        }
         if ([...forbidTags].some(t => selectedTagSet.has(t))) continue;
         if (forbidTags.has(environment)) continue;
 
