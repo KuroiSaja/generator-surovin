@@ -408,7 +408,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     
         const opt = document.createElement("option");
         opt.value = env;
-        opt.textContent = env;
+        opt.textContent = env.charAt(0).toUpperCase() + env.slice(1);
         envSelect.appendChild(opt);
     }
 
