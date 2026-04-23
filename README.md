@@ -104,6 +104,6 @@ suroviny: (score − 10) × 10 až  (score − 5) × 10, nejméně 10
 Všechny výsledky jsou sníženy na polovinu (zaokrouhleno dolů):
 
 ```
-obecné suroviny = floor(score × hodiny / 2)
-každý konkrétní nález = floor(počet / 2)
+obecné suroviny       = score × hodiny ÷ 2
+každý konkrétní nález = počet ÷ 2
 ```
