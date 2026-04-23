@@ -50,7 +50,9 @@ Rozsah náhodně losovaného počtu nálezů za hodinu závisí na score. Při s
 | 20–24 | 4–6 |
 | … | … +1 každých 5 bodů |
 
-Celkový počet výběrů = nálezy/hodinu × počet hodin.
+```
+celkový počet nálezů = nálezy za hodinu × počet hodin
+```
 
 ---
 
