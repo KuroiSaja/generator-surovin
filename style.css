@@ -394,6 +394,7 @@ input[type="checkbox"] {
     border-radius: 3px;
     padding: 0.75rem;
     background: rgba(176, 128, 48, 0.06);
+    width: fit-content;
 }
 
 .pj-group legend {
