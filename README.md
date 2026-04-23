@@ -93,8 +93,8 @@ Přináší jeden výrazný nález vybraný váženým losem:
 | Abstraktní nález (suroviny) | 1,0 |
 
 ```
-mana:     (score − 10) × 5  až  (score − 5) × 5,  nejméně 5
-suroviny: (score − 10) × 10 až  (score − 5) × 10, nejméně 10
+mana: (score − 10) × 5 až (score − 5) × 5, nejméně 5
+suroviny: (score − 10) × 10 až (score − 5) × 10, nejméně 10
 ```
 
 ---
@@ -104,6 +104,6 @@ suroviny: (score − 10) × 10 až  (score − 5) × 10, nejméně 10
 Všechny výsledky jsou sníženy na polovinu (zaokrouhleno dolů):
 
 ```
-obecné suroviny       = score × hodiny ÷ 2
+obecné suroviny = score × hodiny ÷ 2
 každý konkrétní nález = počet ÷ 2
 ```
