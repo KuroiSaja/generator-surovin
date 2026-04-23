@@ -220,8 +220,16 @@
             </fieldset>
         </div>
     </div>
-    <pre class="rules-code">mana:     max((score − 10) × 5,  5)  až  max((score − 5) × 5,  mana_min)
-suroviny: max((score − 10) × 10, 10) až  max((score − 5) × 10, sur_min)</pre>
+    <p>Pro score ≤ 10 jsou obě hodnoty na minimu. Každý bod score nad 10 zvyšuje dolní hranici o 5 (mana) / 10 (suroviny); horní hranice je vždy o 25 / 50 výše:</p>
+    <table class="rules-table">
+        <thead><tr><th>Score</th><th>Mana</th><th>Suroviny</th></tr></thead>
+        <tbody>
+            <tr><td>≤ 10</td><td>5</td><td>10</td></tr>
+            <tr><td>15</td><td>25–50</td><td>50–100</td></tr>
+            <tr><td>20</td><td>50–75</td><td>100–150</td></tr>
+            <tr><td>25</td><td>75–100</td><td>150–200</td></tr>
+        </tbody>
+    </table>
 
     <h2>5. Kritický neúspěch</h2>
     <p>Všechny výsledky jsou sníženy na polovinu (zaokrouhleno dolů):</p>
