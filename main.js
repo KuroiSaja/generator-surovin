@@ -342,6 +342,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         if (simple && pjEnabled.checked) {
             pjEnabled.checked = false;
             pjOptions.hidden = true;
+            pjPoolOptions.hidden = true;
         }
     });
 
