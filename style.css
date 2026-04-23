@@ -446,6 +446,17 @@ input[type="checkbox"] {
     display: inline;
 }
 
+#pjPoolOptions .pj-group label {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+#pjPoolOptions .pj-group input[type="number"] {
+    width: 56px;
+}
+
 .pj-group input[type="number"] {
     padding: 4px 6px;
     font-size: 0.9rem;
