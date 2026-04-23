@@ -39,9 +39,9 @@ obecné suroviny = score × počet hodin
 
 ### Konkrétní nálezy
 
-Počet výběrů za hodinu závisí na score. Za každých 5 bodů nad 5 se rozsah posune o 1:
+Rozsah náhodně losovaného počtu nálezů za hodinu závisí na score. Při score 1–4 se nenajde nic; od 5 výše začíná rozsah 1–3 a každých dalších 5 bodů ho posune o 1 nahoru:
 
-| Score | Nálezy / hodinu |
+| Score | Nálezy za hodinu |
 |---|---|
 | 1–4 | 0 (nic) |
 | 5–9 | 1–3 |
