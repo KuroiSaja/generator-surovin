@@ -133,7 +133,7 @@ h3 {
 .tab-btn.active {
     background: var(--parchment);
     color: var(--accent);
-    border-color: var(--border-gold);
+    border-color: var(--parchment);
     border-bottom: 2px solid var(--parchment);
     margin-bottom: -2px;
     position: relative;
