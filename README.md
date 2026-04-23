@@ -19,9 +19,9 @@ Každá surovina má definované prostředí a roční období. Shoda určuje pr
 
 Zvláštní podmínky upřesňují prostředí nad rámec základního výběru – například přítomnost vody, spáleniště nebo magické anomálie. Každá surovina může mít definováno, za jakých podmínek se vyskytuje nebo nevyskytuje.
 
-**Povinná podmínka** – pokud podmínka není splněna, surovina se nevyskytuje vůbec.
+**Povinná podmínka** – surovina je zařazena do poolu pouze pokud podmínka platí.
 
-**Zakázaná podmínka** – pokud podmínka platí, surovina je zcela vyloučena.
+**Zakázaná podmínka** – pokud podmínka platí, surovina je z poolu vyloučena.
 
 **Specifická podmínka** – pokud podmínka platí:
 - prostředí souhlasí → surovina je do poolu zařazena vždy (100 %)
