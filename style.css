@@ -116,14 +116,12 @@ h3 {
     padding: 0.45rem 1.4rem;
     background: var(--parchment-dark);
     border: 1px solid var(--border);
-    border-bottom: none;
+    border-bottom: 1px solid var(--border);
     color: var(--ink-mid);
     cursor: pointer;
     border-radius: 3px 3px 0 0;
     transition: background 0.15s, color 0.15s;
     outline: none;
-    position: relative;
-    bottom: -1px;
 }
 
 .tab-btn:hover {
@@ -136,6 +134,8 @@ h3 {
     color: var(--accent);
     border-color: var(--border-gold);
     border-bottom: 2px solid var(--parchment);
+    margin-bottom: -2px;
+    position: relative;
     z-index: 1;
 }
 
