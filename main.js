@@ -253,6 +253,16 @@ function renderResult(result) {
 
 document.addEventListener("DOMContentLoaded", async () => {
 
+    // Záložky
+    document.querySelectorAll(".tab-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+            document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+            document.querySelectorAll(".tab-panel").forEach(p => { p.hidden = true; });
+            btn.classList.add("active");
+            document.getElementById("tab-" + btn.dataset.tab).hidden = false;
+        });
+    });
+
     // 1️⃣ Načti data
     await Promise.all([
         loadIngredients(),

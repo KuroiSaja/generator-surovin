@@ -18,6 +18,106 @@
 <h1>Generátor hledání surovin</h1>
 <p class="scroll-ornament">✦ &nbsp; Dračí hlídka &nbsp; ✦</p>
 
+<nav class="tab-nav" role="tablist">
+    <button class="tab-btn active" data-tab="uvod" role="tab">Úvod</button>
+    <button class="tab-btn" data-tab="generator" role="tab">Generátor</button>
+</nav>
+
+<div id="tab-uvod" class="tab-panel">
+
+    <p class="intro-text">Webový nástroj pro hru <strong>Dračí hlídka</strong>. Vypravěč zadá prostředí, roční období, score postavy (d10 + Znalost přírody + INT) a počet hodin hledání. Nástroj vygeneruje obecné suroviny a konkrétní nálezy s přihlédnutím k tagům oblasti a případnému kritickému úspěchu či neúspěchu.</p>
+
+    <p class="intro-links">
+        <a class="intro-link" href="https://github.com/KuroiSaja/KuroiSaja.github.io">GitHub – zdrojový kód</a>
+    </p>
+
+    <h2>1. Pool – co se v okolí nachází</h2>
+    <p>Každá surovina má definované prostředí a roční období. Shoda určuje pravděpodobnost zařazení do poolu:</p>
+    <table class="rules-table">
+        <thead><tr><th>Prostředí</th><th>Sezóna</th><th>Šance vstupu do poolu</th></tr></thead>
+        <tbody>
+            <tr><td>Ano</td><td>Ano</td><td>100 %</td></tr>
+            <tr><td>Jedno z nich</td><td>–</td><td>30 %</td></tr>
+            <tr><td>Ani jedno</td><td>–</td><td>5 %</td></tr>
+        </tbody>
+    </table>
+
+    <h3>Tagy</h3>
+    <dl class="rules-dl">
+        <dt>Required tag</dt>
+        <dd>Pokud podmínka není splněna, surovina se nevyskytuje vůbec.</dd>
+        <dt>Forbid tag</dt>
+        <dd>Pokud podmínka platí, surovina je zcela vyloučena.</dd>
+        <dt>Specific tag</dt>
+        <dd>Pokud podmínka platí a prostředí souhlasí → surovina je do poolu zařazena vždy (100 %); pokud prostředí nesouhlasí → specific tag prostředí nahradí. Zároveň zvyšuje váhu výběru o násobitel <strong>1,6×</strong>.</dd>
+    </dl>
+
+    <h2>2. Kolik se toho najde</h2>
+    <h3>Obecné suroviny</h3>
+    <pre class="rules-code">obecné suroviny = score × počet hodin</pre>
+
+    <h3>Konkrétní nálezy</h3>
+    <p>Za každých 5 bodů nad 5 se rozsah nálezů za hodinu posune o +1:</p>
+    <table class="rules-table">
+        <thead><tr><th>Score</th><th>Nálezy / hodinu</th></tr></thead>
+        <tbody>
+            <tr><td>1–4</td><td>0 (nic)</td></tr>
+            <tr><td>5–9</td><td>1–3</td></tr>
+            <tr><td>10–14</td><td>2–4</td></tr>
+            <tr><td>15–19</td><td>3–5</td></tr>
+            <tr><td>20–24</td><td>4–6</td></tr>
+            <tr><td>…</td><td>… +1 každých 5 bodů</td></tr>
+        </tbody>
+    </table>
+    <p>Celkový počet výběrů = nálezy/hodinu × počet hodin.</p>
+
+    <h2>3. Co je nalezeno – váhy rarity</h2>
+    <table class="rules-table">
+        <thead><tr><th>Rarita</th><th>Váha</th></tr></thead>
+        <tbody>
+            <tr><td>Common</td><td>1,00</td></tr>
+            <tr><td>Uncommon</td><td>0,35</td></tr>
+            <tr><td>Rare</td><td>0,12</td></tr>
+        </tbody>
+    </table>
+
+    <h3>Clustering (opakované nálezy)</h3>
+    <p>Pokud se surovina již jednou našla, její váha se upraví:</p>
+    <table class="rules-table">
+        <thead><tr><th>Počet nálezů</th><th>Úprava váhy</th></tr></thead>
+        <tbody>
+            <tr><td>1. nález</td><td>základní váha</td></tr>
+            <tr><td>2. nález</td><td>váha × (1 + 3,0 × základní váha)</td></tr>
+            <tr><td>3. nález</td><td>váha × 1,2</td></tr>
+            <tr><td>4. nález</td><td>váha × 1 / (1 + 0,7) ≈ × 0,59</td></tr>
+            <tr><td>5. nález</td><td>váha × 1 / (1 + 1,4) ≈ × 0,42</td></tr>
+            <tr><td>…</td><td>klesá dál</td></tr>
+        </tbody>
+    </table>
+    <p>Příklad pro common (váha 1,0): 2. nález má váhu <strong>4,0</strong> – silný peak, bohaté naleziště.</p>
+
+    <h2>4. Kritický úspěch</h2>
+    <p>Přináší jeden výrazný nález vybraný váženým losem:</p>
+    <table class="rules-table">
+        <thead><tr><th>Nález</th><th>Váha</th></tr></thead>
+        <tbody>
+            <tr><td>Uncommon surovina</td><td>1,0</td></tr>
+            <tr><td>Rare surovina</td><td>0,25</td></tr>
+            <tr><td>Abstraktní nález (mana)</td><td>1,0</td></tr>
+            <tr><td>Abstraktní nález (suroviny)</td><td>1,0</td></tr>
+        </tbody>
+    </table>
+    <pre class="rules-code">mana:     max((score − 10) × 5,  5)  až  max((score − 5) × 5,  mana_min)
+suroviny: max((score − 10) × 10, 10) až  max((score − 5) × 10, sur_min)</pre>
+
+    <h2>5. Kritický neúspěch</h2>
+    <p>Všechny výsledky jsou sníženy na polovinu (zaokrouhleno dolů):</p>
+    <pre class="rules-code">obecné suroviny = floor(score × hodiny / 2)
+každý konkrétní nález = floor(počet / 2)</pre>
+
+</div>
+
+<div id="tab-generator" class="tab-panel" hidden>
 <form id="generatorForm" class="generator-form">
 
     <div class="form-main">
@@ -113,6 +213,7 @@
     </div>
 
 </form>
+</div>
 
 </main>
 
