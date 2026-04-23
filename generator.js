@@ -59,9 +59,10 @@ function weightedRandom(items, weights) {
 // =========================
 
 const DEFAULT_POOL_CHANCES = {
-    both: 1.00,
-    one:  0.30,
-    none: 0.05
+    both:       1.00,
+    envOnly:    0.30,
+    seasonOnly: 0.30,
+    none:       0.05
 };
 
 function buildPool(ingredients, environment, season, selectedTags, poolChances = DEFAULT_POOL_CHANCES) {
@@ -107,8 +108,9 @@ function buildPool(ingredients, environment, season, selectedTags, poolChances =
 
         // 4️⃣ vážená šance vstupu
         let chance = poolChances.none;
-        if (envMatch && seasonMatch) chance = poolChances.both;
-        else if (envMatch || seasonMatch) chance = poolChances.one;
+        if (envMatch && seasonMatch)  chance = poolChances.both;
+        else if (envMatch)            chance = poolChances.envOnly;
+        else if (seasonMatch)         chance = poolChances.seasonOnly;
 
         if (Math.random() <= chance) {
             pool.push(row);
