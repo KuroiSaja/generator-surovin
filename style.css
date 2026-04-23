@@ -213,6 +213,24 @@ h3 {
     border-bottom: none;
 }
 
+.pool-table td {
+    text-align: center;
+}
+
+.pool-table td:last-child {
+    text-align: left;
+}
+
+.icon-yes {
+    color: #4a7a28;
+    font-size: 1rem;
+}
+
+.icon-no {
+    color: var(--accent);
+    font-size: 1rem;
+}
+
 .rules-dl {
     margin: 0.75rem 0 1.25rem;
     display: grid;
