@@ -139,7 +139,7 @@ h3 {
         url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E");
     color: var(--accent);
     border-color: var(--border-gold);
-    border-bottom: 2px solid var(--parchment-light);
+    border-bottom: 2px solid var(--parchment);
     margin-bottom: -2px;
     position: relative;
     z-index: 1;
