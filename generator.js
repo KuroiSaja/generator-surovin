@@ -55,6 +55,15 @@ function weightedRandom(items, weights) {
 
 
 // =========================
+// SIMPLE MODE
+// =========================
+
+function generateSimple(ingredients, count) {
+    const shuffled = [...ingredients].sort(() => Math.random() - 0.5);
+    return shuffled.slice(0, Math.min(count, shuffled.length));
+}
+
+// =========================
 // POOL LOGIC
 // =========================
 

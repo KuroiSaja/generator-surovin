@@ -248,13 +248,70 @@ function renderResult(result) {
 }
 
 // =========================
+// SIMPLE RESULT RENDERING
+// =========================
+
+function renderSimpleResult(picks) {
+    const el = document.getElementById("result");
+    el.innerHTML = "";
+
+    const h2 = document.createElement("h2");
+    h2.textContent = "Vygenerované suroviny";
+    el.appendChild(h2);
+
+    if (picks.length === 0) {
+        const empty = document.createElement("p");
+        empty.className = "empty-result";
+        empty.textContent = "Nenašel jsi nic.";
+        el.appendChild(empty);
+        return;
+    }
+
+    const ul = document.createElement("ul");
+    for (const row of picks) {
+        const li = document.createElement("li");
+        li.dataset.rarity = row.rarity;
+        if (row.type) li.dataset.type = row.type;
+
+        let text = `<strong>${row.name}</strong>`;
+        const details = [];
+        if (row.type) details.push(`typ: ${row.type}`);
+        if (safeInt(row.mana)) details.push(`mana: ${safeInt(row.mana)}`);
+        if (safeInt(row.suroviny)) details.push(`suroviny: ${safeInt(row.suroviny)}`);
+        if (row.rarity) details.push(`rarita: ${row.rarity}`);
+        if (details.length > 0) text += ` <em>(${details.join(", ")})</em>`;
+        li.innerHTML = text;
+
+        if (row.usage && String(row.usage).trim().length > 0) {
+            const usage = document.createElement("div");
+            usage.className = "usage";
+            usage.textContent = row.usage;
+            li.appendChild(usage);
+        }
+
+        ul.appendChild(li);
+    }
+    el.appendChild(ul);
+    el.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+// =========================
 // FORM HANDLER
 // =========================
 
 document.addEventListener("DOMContentLoaded", async () => {
 
-    // Pravidla toggle – chování bude doplněno
+    // Pravidla toggle – přepínání modů generátoru
     const rulesEnabled = document.getElementById("rulesEnabled");
+    const generatorComplex = document.getElementById("generatorComplex");
+    const generatorSimple  = document.getElementById("generatorSimple");
+
+    rulesEnabled.addEventListener("change", () => {
+        const simple = !rulesEnabled.checked;
+        generatorComplex.hidden = simple;
+        generatorSimple.hidden  = !simple;
+        document.getElementById("result").innerHTML = "";
+    });
 
     // Záložky
     document.querySelectorAll(".tab-btn").forEach(btn => {
@@ -357,6 +414,14 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     form.addEventListener("submit", e => {
         e.preventDefault();
+
+        // Simple mode
+        if (!rulesEnabled.checked) {
+            const count = parseInt(document.getElementById("simpleCount").value) || 5;
+            const picks = generateSimple(INGREDIENTS, count);
+            renderSimpleResult(picks);
+            return;
+        }
 
         const data = new FormData(form);
 

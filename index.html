@@ -37,7 +37,7 @@
 <div id="tab-nastaveni" class="tab-panel" hidden>
 
     <label class="toggle-switch toggle-inline">
-        <input type="checkbox" id="rulesEnabled">
+        <input type="checkbox" id="rulesEnabled" checked>
         <span class="toggle-slider"></span>
         <span class="toggle-label">Zapnout pravidla</span>
     </label>
@@ -134,8 +134,9 @@ každý konkrétní nález = floor(počet / 2)</pre>
 </div>
 
 <div id="tab-generator" class="tab-panel" hidden>
-<form id="generatorForm" class="generator-form">
+<form id="generatorForm" class="generator-form" novalidate>
 
+    <div id="generatorComplex">
     <div class="form-main">
 
         <div class="form-inputs">
@@ -219,6 +220,16 @@ každý konkrétní nález = floor(počet / 2)</pre>
             </div>
         </div>
 
+    </div>
+    </div>
+
+    <div id="generatorSimple" hidden>
+        <section class="form-section">
+            <label>
+                Počet generovaných surovin
+                <input type="number" id="simpleCount" min="1" value="5">
+            </label>
+        </section>
     </div>
 
     <div class="action-panel">
