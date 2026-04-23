@@ -154,7 +154,7 @@ function buildPool(ingredients, environment, season, selectedTags, poolChances =
 // PICK LOGIC
 // =========================
 
-function pickFromPool(pool, total, selectedTags, rarityWeights = null) {
+function pickFromPool(pool, total, selectedTags, rarityWeights = null, clusteringEnabled = true) {
     const results = [];
     const foundCounts = {};
     const selectedTagSet = new Set(selectedTags || []);
@@ -192,17 +192,16 @@ function pickFromPool(pool, total, selectedTags, rarityWeights = null) {
             }
 
             // 3️⃣ opakování
-            const count = foundCounts[name] || 0;
+            if (clusteringEnabled) {
+                const count = foundCounts[name] || 0;
 
-            if (count === 1) {
-                // 2. nález – silný peak
-                weight *= (1 + PEAK_STRENGTH * base);
-            } else if (count === 2) {
-                // 3. nález – stále bohaté místo
-                weight *= THIRD_MULTIPLIER;
-            } else if (count >= 3) {
-                // útlum od 4.
-                weight *= 1.0 / (1 + (count - 2) * DECAY_RATE);
+                if (count === 1) {
+                    weight *= (1 + PEAK_STRENGTH * base);
+                } else if (count === 2) {
+                    weight *= THIRD_MULTIPLIER;
+                } else if (count >= 3) {
+                    weight *= 1.0 / (1 + (count - 2) * DECAY_RATE);
+                }
             }
 
             weights.push(weight);
@@ -223,7 +222,7 @@ function pickFromPool(pool, total, selectedTags, rarityWeights = null) {
 // GENERATION
 // =========================
 
-function generate(ingredients, environment, season, score, hours, critical, criticalFail, selectedTags, baseMin = 1, baseMax = 3, poolChances = DEFAULT_POOL_CHANCES, rarityWeights = null, critWeights = null) {
+function generate(ingredients, environment, season, score, hours, critical, criticalFail, selectedTags, baseMin = 1, baseMax = 3, poolChances = DEFAULT_POOL_CHANCES, rarityWeights = null, critWeights = null, clusteringEnabled = true) {
 
     const result = {
         inputs: {
@@ -242,7 +241,7 @@ function generate(ingredients, environment, season, score, hours, critical, crit
     // ---- základní generace ----
     const pool = buildPool(ingredients, environment, season, selectedTags, poolChances);
     const totalPicks = concretePerHour(score, baseMin, baseMax) * hours;
-    const picks = pickFromPool(pool, totalPicks, selectedTags, rarityWeights);
+    const picks = pickFromPool(pool, totalPicks, selectedTags, rarityWeights, clusteringEnabled);
 
     for (const row of picks) {
         const name = row.name;

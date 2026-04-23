@@ -486,6 +486,8 @@ document.addEventListener("DOMContentLoaded", async () => {
             none:       Math.min(parseInt(document.getElementById("pjNone").value)       || 5,   100) / 100,
         } : DEFAULT_POOL_CHANCES;
 
+        const clusteringEnabled = document.getElementById("clusteringEnabled").checked;
+
         const result = generate(
             INGREDIENTS,
             data.get("environment"),
@@ -499,7 +501,8 @@ document.addEventListener("DOMContentLoaded", async () => {
             baseMax,
             poolChances,
             rarityWeights,
-            critWeights
+            critWeights,
+            clusteringEnabled
         );
 
         result.inputs.tags = selectedTagIds;
