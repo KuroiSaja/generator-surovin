@@ -1,4 +1,10 @@
 // =========================
+// VERSION
+// =========================
+
+const APP_VERSION = "v1.0";
+
+// =========================
 // DATA
 // =========================
 
@@ -300,6 +306,9 @@ function renderSimpleResult(picks) {
 // =========================
 
 document.addEventListener("DOMContentLoaded", async () => {
+
+    const versionEl = document.querySelector(".intro-version");
+    if (versionEl) versionEl.textContent = APP_VERSION;
 
     // PJ mode (v záložce Nastavení)
     const pjEnabled = document.getElementById("pjEnabled");
