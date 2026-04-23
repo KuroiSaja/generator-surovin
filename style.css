@@ -311,6 +311,14 @@ h3 {
     gap: 1.5rem;
 }
 
+.generator-score-hint {
+    font-family: 'Cinzel', serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.04em;
+    color: var(--ink-mid);
+    margin: 0 0 0.75rem;
+}
+
 /* =========================
    LAYOUT – inputs + PJ panel
    ========================= */
