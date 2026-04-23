@@ -305,11 +305,20 @@ document.addEventListener("DOMContentLoaded", async () => {
     const pjEnabled = document.getElementById("pjEnabled");
     const pjOptions = document.getElementById("pjOptions");
     const pjPoolOptions = document.getElementById("pjPoolOptions");
+    let pjPoolEverShown = false;
 
     pjEnabled.addEventListener("change", () => {
         pjOptions.hidden = !pjEnabled.checked;
-        pjPoolOptions.classList.toggle('pj-collapsed', !pjEnabled.checked);
-        if (!pjEnabled.checked) {
+        if (pjEnabled.checked) {
+            pjPoolEverShown = true;
+            pjPoolOptions.removeAttribute('hidden');
+            pjPoolOptions.classList.remove('pj-collapsed');
+        } else {
+            if (pjPoolEverShown) {
+                pjPoolOptions.classList.add('pj-collapsed');
+            } else {
+                pjPoolOptions.setAttribute('hidden', '');
+            }
             document.getElementById("pjMinPerHour").value = 1;
             document.getElementById("pjMaxPerHour").value = 3;
             document.getElementById("pjBoth").value = 100;
@@ -342,7 +351,11 @@ document.addEventListener("DOMContentLoaded", async () => {
         if (simple && pjEnabled.checked) {
             pjEnabled.checked = false;
             pjOptions.hidden = true;
-            pjPoolOptions.classList.add('pj-collapsed');
+            if (pjPoolEverShown) {
+                pjPoolOptions.classList.add('pj-collapsed');
+            } else {
+                pjPoolOptions.setAttribute('hidden', '');
+            }
         }
     });
 
