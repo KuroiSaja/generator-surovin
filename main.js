@@ -306,11 +306,13 @@ document.addEventListener("DOMContentLoaded", async () => {
     const pjOptions = document.getElementById("pjOptions");
     const pjPoolOptions   = document.getElementById("pjPoolOptions");
     const pjRarityOptions = document.getElementById("pjRarityOptions");
+    const pjCritOptions   = document.getElementById("pjCritOptions");
 
     pjEnabled.addEventListener("change", () => {
         pjOptions.hidden = !pjEnabled.checked;
         pjPoolOptions.classList.toggle('pj-collapsed', !pjEnabled.checked);
         pjRarityOptions.classList.toggle('pj-collapsed', !pjEnabled.checked);
+        pjCritOptions.classList.toggle('pj-collapsed', !pjEnabled.checked);
         if (!pjEnabled.checked) {
             document.getElementById("pjMinPerHour").value = 1;
             document.getElementById("pjMaxPerHour").value = 3;
@@ -321,6 +323,10 @@ document.addEventListener("DOMContentLoaded", async () => {
             document.getElementById("pjCommon").value = 1;
             document.getElementById("pjUncommon").value = 0.35;
             document.getElementById("pjRare").value = 0.12;
+            document.getElementById("pjCritUncommon").value = 1;
+            document.getElementById("pjCritRare").value = 0.25;
+            document.getElementById("pjCritMana").value = 1;
+            document.getElementById("pjCritSuroviny").value = 1;
         }
     });
 
@@ -349,6 +355,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             pjOptions.hidden = true;
             pjPoolOptions.classList.add('pj-collapsed');
             pjRarityOptions.classList.add('pj-collapsed');
+            pjCritOptions.classList.add('pj-collapsed');
         }
     });
 
@@ -459,6 +466,13 @@ document.addEventListener("DOMContentLoaded", async () => {
         const baseMin = pjEnabled.checked ? (parseInt(document.getElementById("pjMinPerHour").value) || 1) : 1;
         const baseMax = pjEnabled.checked ? (parseInt(document.getElementById("pjMaxPerHour").value) || 3) : 3;
 
+        const critWeights = pjEnabled.checked ? {
+            uncommon: Math.max(parseFloat(document.getElementById("pjCritUncommon").value) || 1.0,  0),
+            rare:     Math.max(parseFloat(document.getElementById("pjCritRare").value)     || 0.25, 0),
+            mana:     Math.max(parseFloat(document.getElementById("pjCritMana").value)     || 1.0,  0),
+            suroviny: Math.max(parseFloat(document.getElementById("pjCritSuroviny").value) || 1.0,  0),
+        } : null;
+
         const rarityWeights = pjEnabled.checked ? {
             common:   Math.max(parseFloat(document.getElementById("pjCommon").value)   || 1.0,  0),
             uncommon: Math.max(parseFloat(document.getElementById("pjUncommon").value) || 0.35, 0),
@@ -484,7 +498,8 @@ document.addEventListener("DOMContentLoaded", async () => {
             baseMin,
             baseMax,
             poolChances,
-            rarityWeights
+            rarityWeights,
+            critWeights
         );
 
         result.inputs.tags = selectedTagIds;

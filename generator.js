@@ -223,7 +223,7 @@ function pickFromPool(pool, total, selectedTags, rarityWeights = null) {
 // GENERATION
 // =========================
 
-function generate(ingredients, environment, season, score, hours, critical, criticalFail, selectedTags, baseMin = 1, baseMax = 3, poolChances = DEFAULT_POOL_CHANCES, rarityWeights = null) {
+function generate(ingredients, environment, season, score, hours, critical, criticalFail, selectedTags, baseMin = 1, baseMax = 3, poolChances = DEFAULT_POOL_CHANCES, rarityWeights = null, critWeights = null) {
 
     const result = {
         inputs: {
@@ -264,10 +264,11 @@ function generate(ingredients, environment, season, score, hours, critical, crit
     if (critical) {
         const uncommon = ingredients.filter(i => i.rarity === "uncommon");
         const rare = ingredients.filter(i => i.rarity === "rare");
-    
+        const cw = critWeights ?? { uncommon: 1.0, rare: 0.25, mana: 1.0, suroviny: 1.0 };
+
         const choices = [];
         const weights = [];
-    
+
         // UNCOMMON
         if (uncommon.length > 0) {
             const r = uncommon[Math.floor(Math.random() * uncommon.length)];
@@ -280,9 +281,9 @@ function generate(ingredients, environment, season, score, hours, critical, crit
                 usage: r.usage,
                 rarity: r.rarity
             });
-            weights.push(1.0);
+            weights.push(cw.uncommon);
         }
-    
+
         // RARE (nižší váha)
         if (rare.length > 0) {
             const r = rare[Math.floor(Math.random() * rare.length)];
@@ -295,13 +296,13 @@ function generate(ingredients, environment, season, score, hours, critical, crit
                 usage: r.usage,
                 rarity: r.rarity
             });
-            weights.push(0.25);
+            weights.push(cw.rare);
         }
-    
+
         // ABSTRAKTNÍ MAGICKÝ NÁLEZ (MANA)
         const manaMin = Math.max((score - 10) * 5, 5);
         const manaMax = Math.max((score - 5) * 5, manaMin);
-    
+
         choices.push({
             name: "Abstraktní magický nález",
             count: null,
@@ -311,12 +312,12 @@ function generate(ingredients, environment, season, score, hours, critical, crit
             usage: "Volně využitelná magická energie",
             rarity: "abstract"
         });
-        weights.push(1.0);
-    
+        weights.push(cw.mana);
+
         // ABSTRAKTNÍ NÁLEZ SUROVIN
         const surovinyMin = Math.max((score - 10) * 10, 10);
         const surovinyMax = Math.max((score - 5) * 10, surovinyMin);
-    
+
         choices.push({
             name: "Abstraktní nález surovin",
             count: null,
@@ -326,8 +327,8 @@ function generate(ingredients, environment, season, score, hours, critical, crit
             usage: "Volně využitelné alchymistické suroviny",
             rarity: "abstract"
         });
-        weights.push(1.0);
-    
+        weights.push(cw.suroviny);
+
         result.rare = weightedRandom(choices, weights);
     }
 
