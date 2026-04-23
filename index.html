@@ -63,7 +63,13 @@
         </tbody>
     </table>
 
-    <h3>Tagy</h3>
+    <div class="section-header-inline">
+        <h3>Zvláštní podmínky</h3>
+        <label class="toggle-switch">
+            <input type="checkbox" id="tagsEnabled">
+            <span class="toggle-slider"></span>
+        </label>
+    </div>
     <dl class="rules-dl">
         <dt>Required tag</dt>
         <dd>Pokud podmínka není splněna, surovina se nevyskytuje vůbec.</dd>
@@ -181,11 +187,6 @@ každý konkrétní nález = floor(počet / 2)</pre>
                     </select>
                 </label>
 
-                <label class="toggle-switch toggle-inline">
-                    <input type="checkbox" id="tagsEnabled">
-                    <span class="toggle-slider"></span>
-                    <span class="toggle-label">Zvláštní podmínky</span>
-                </label>
             </section>
 
             <section class="form-section">

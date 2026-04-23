@@ -15,7 +15,7 @@ Každá surovina má definované prostředí a roční období. Shoda určuje pr
 | ✘ | ✔ | 30 % |
 | ✘ | ✘ | 5 % |
 
-### Tagy
+### Zvláštní podmínky
 
 **Required tag** – pokud podmínka není splněna, surovina se nevyskytuje vůbec.
 
