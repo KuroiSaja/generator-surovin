@@ -25,9 +25,6 @@ body {
     min-height: 100vh;
     box-sizing: border-box;
     background-color: var(--body-bg);
-    background-image:
-        radial-gradient(ellipse at 50% 0%,   #3d1e08 0%, transparent 55%),
-        radial-gradient(ellipse at 50% 100%, #2a1205 0%, transparent 55%);
     font-family: 'Lora', Georgia, serif;
     color: var(--ink);
 }
