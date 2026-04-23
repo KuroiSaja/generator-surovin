@@ -353,6 +353,10 @@ h3 {
     transition: border-color 0.2s, box-shadow 0.2s;
 }
 
+.form-section input[type="number"] {
+    width: 56px;
+}
+
 .form-section input:focus,
 .form-section select:focus {
     border-color: var(--accent);
@@ -446,14 +450,16 @@ input[type="checkbox"] {
     display: inline;
 }
 
-#pjPoolOptions .pj-group label {
+#pjPoolOptions .pj-group label,
+#pjOptions .pj-group label {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
     gap: 1rem;
 }
 
-#pjPoolOptions .pj-group input[type="number"] {
+#pjPoolOptions .pj-group input[type="number"],
+#pjOptions .pj-group input[type="number"] {
     width: 56px;
 }
 
