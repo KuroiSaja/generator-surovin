@@ -450,12 +450,14 @@ input[type="checkbox"] {
     display: inline;
 }
 
-#pjPoolOptions.pj-collapsed {
+#pjPoolOptions.pj-collapsed,
+#pjRarityOptions.pj-collapsed {
     visibility: hidden;
     pointer-events: none;
 }
 
 #pjPoolOptions .pj-group label,
+#pjRarityOptions .pj-group label,
 #pjOptions .pj-group label {
     flex-direction: row;
     align-items: center;
@@ -464,6 +466,7 @@ input[type="checkbox"] {
 }
 
 #pjPoolOptions .pj-group input[type="number"],
+#pjRarityOptions .pj-group input[type="number"],
 #pjOptions .pj-group input[type="number"] {
     width: 56px;
 }
@@ -493,7 +496,8 @@ input[type="checkbox"] {
 }
 
 @media (max-width: 600px) {
-    #pjPoolOptions.pj-collapsed {
+    #pjPoolOptions.pj-collapsed,
+    #pjRarityOptions.pj-collapsed {
         display: none;
     }
 

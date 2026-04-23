@@ -154,13 +154,12 @@ function buildPool(ingredients, environment, season, selectedTags, poolChances =
 // PICK LOGIC
 // =========================
 
-function pickFromPool(pool, total, selectedTags) {
+function pickFromPool(pool, total, selectedTags, rarityWeights = null) {
     const results = [];
     const foundCounts = {};
     const selectedTagSet = new Set(selectedTags || []);
 
-    // Základní váhy podle rarity
-    const RARITY_WEIGHT = {
+    const RARITY_WEIGHT = rarityWeights ?? {
         common: 1.0,
         uncommon: 0.35,
         rare: 0.12
@@ -224,7 +223,7 @@ function pickFromPool(pool, total, selectedTags) {
 // GENERATION
 // =========================
 
-function generate(ingredients, environment, season, score, hours, critical, criticalFail, selectedTags, baseMin = 1, baseMax = 3, poolChances = DEFAULT_POOL_CHANCES) {
+function generate(ingredients, environment, season, score, hours, critical, criticalFail, selectedTags, baseMin = 1, baseMax = 3, poolChances = DEFAULT_POOL_CHANCES, rarityWeights = null) {
 
     const result = {
         inputs: {
@@ -243,7 +242,7 @@ function generate(ingredients, environment, season, score, hours, critical, crit
     // ---- základní generace ----
     const pool = buildPool(ingredients, environment, season, selectedTags, poolChances);
     const totalPicks = concretePerHour(score, baseMin, baseMax) * hours;
-    const picks = pickFromPool(pool, totalPicks, selectedTags);
+    const picks = pickFromPool(pool, totalPicks, selectedTags, rarityWeights);
 
     for (const row of picks) {
         const name = row.name;
