@@ -339,6 +339,12 @@ h3 {
     gap: 0.75rem;
 }
 
+.inputs-row {
+    display: grid;
+    grid-template-columns: repeat(4, max-content);
+    align-items: end;
+}
+
 .form-section label {
     display: flex;
     flex-direction: column;
@@ -514,6 +520,10 @@ input[type="checkbox"] {
     #pjRarityOptions.pj-collapsed,
     #pjCritOptions.pj-collapsed {
         display: none;
+    }
+
+    .inputs-row {
+        grid-template-columns: repeat(2, max-content);
     }
 
     .scroll {
