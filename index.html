@@ -49,6 +49,20 @@
         </label>
     </div>
 
+    <div id="rulesContent">
+
+    <h2>1. Pool – co se v okolí nachází</h2>
+    <p>Každá surovina má definované prostředí a roční období. Shoda určuje pravděpodobnost zařazení do poolu:</p>
+    <table class="rules-table pool-table">
+        <thead><tr><th>Prostředí</th><th>Sezóna</th><th>Šance vstupu do poolu</th></tr></thead>
+        <tbody>
+            <tr><td class="icon-yes">✔</td><td class="icon-yes">✔</td><td>100 %</td></tr>
+            <tr><td class="icon-yes">✔</td><td class="icon-no">✘</td><td>30 %</td></tr>
+            <tr><td class="icon-no">✘</td><td class="icon-yes">✔</td><td>30 %</td></tr>
+            <tr><td class="icon-no">✘</td><td class="icon-no">✘</td><td>5 %</td></tr>
+        </tbody>
+    </table>
+
     <div id="pjOptions" hidden>
         <fieldset class="pj-group">
             <legend>Nálezy za hodinu</legend>
@@ -63,20 +77,6 @@
             <p class="pj-hint">Za každých 5 bodů score se rozsah posune o +1</p>
         </fieldset>
     </div>
-
-    <div id="rulesContent">
-
-    <h2>1. Pool – co se v okolí nachází</h2>
-    <p>Každá surovina má definované prostředí a roční období. Shoda určuje pravděpodobnost zařazení do poolu:</p>
-    <table class="rules-table pool-table">
-        <thead><tr><th>Prostředí</th><th>Sezóna</th><th>Šance vstupu do poolu</th></tr></thead>
-        <tbody>
-            <tr><td class="icon-yes">✔</td><td class="icon-yes">✔</td><td>100 %</td></tr>
-            <tr><td class="icon-yes">✔</td><td class="icon-no">✘</td><td>30 %</td></tr>
-            <tr><td class="icon-no">✘</td><td class="icon-yes">✔</td><td>30 %</td></tr>
-            <tr><td class="icon-no">✘</td><td class="icon-no">✘</td><td>5 %</td></tr>
-        </tbody>
-    </table>
 
     <h3>Tagy</h3>
     <dl class="rules-dl">
