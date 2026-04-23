@@ -312,6 +312,10 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     pjEnabled.addEventListener("change", () => {
         pjOptions.hidden = !pjEnabled.checked;
+        if (!pjEnabled.checked) {
+            document.getElementById("pjMinPerHour").value = 1;
+            document.getElementById("pjMaxPerHour").value = 3;
+        }
     });
 
     // 4️⃣ Form submit
