@@ -58,7 +58,13 @@ function weightedRandom(items, weights) {
 // POOL LOGIC
 // =========================
 
-function buildPool(ingredients, environment, season, selectedTags) {
+const DEFAULT_POOL_CHANCES = {
+    both: 1.00,
+    one:  0.30,
+    none: 0.05
+};
+
+function buildPool(ingredients, environment, season, selectedTags, poolChances = DEFAULT_POOL_CHANCES) {
     const pool = [];
     const selectedTagSet = new Set(selectedTags || []);
 
@@ -100,9 +106,9 @@ function buildPool(ingredients, environment, season, selectedTags) {
         }
 
         // 4️⃣ vážená šance vstupu
-        let chance = 0.05;
-        if (envMatch && seasonMatch) chance = 1.0;
-        else if (envMatch || seasonMatch) chance = 0.30;
+        let chance = poolChances.none;
+        if (envMatch && seasonMatch) chance = poolChances.both;
+        else if (envMatch || seasonMatch) chance = poolChances.one;
 
         if (Math.random() <= chance) {
             pool.push(row);
@@ -207,7 +213,7 @@ function pickFromPool(pool, total, selectedTags) {
 // GENERATION
 // =========================
 
-function generate(ingredients, environment, season, score, hours, critical, criticalFail, selectedTags, baseMin = 1, baseMax = 3) {
+function generate(ingredients, environment, season, score, hours, critical, criticalFail, selectedTags, baseMin = 1, baseMax = 3, poolChances = DEFAULT_POOL_CHANCES) {
 
     const result = {
         inputs: {
@@ -224,7 +230,7 @@ function generate(ingredients, environment, season, score, hours, critical, crit
     };
 
     // ---- základní generace ----
-    const pool = buildPool(ingredients, environment, season, selectedTags);
+    const pool = buildPool(ingredients, environment, season, selectedTags, poolChances);
     const totalPicks = concretePerHour(score, baseMin, baseMax) * hours;
     const picks = pickFromPool(pool, totalPicks, selectedTags);
 
