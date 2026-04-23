@@ -10,9 +10,10 @@ Každá surovina má definované prostředí a roční období. Shoda určuje pr
 
 | Prostředí | Sezóna | Šance vstupu do poolu |
 |---|---|---|
-| Ano | Ano | 100 % |
-| Jedno z nich | – | 30 % |
-| Ani jedno | – | 5 % |
+| ✔ | ✔ | 100 % |
+| ✔ | ✘ | 30 % |
+| ✘ | ✔ | 30 % |
+| ✘ | ✘ | 5 % |
 
 ### Tagy
 
