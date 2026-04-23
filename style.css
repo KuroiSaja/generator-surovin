@@ -210,6 +210,18 @@ h3 {
     border-bottom: none;
 }
 
+.concrete-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    align-items: flex-start;
+    margin: 0.75rem 0 1.25rem;
+}
+
+.concrete-row .rules-table {
+    margin: 0;
+}
+
 .pool-table td {
     text-align: center;
 }
