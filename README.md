@@ -15,7 +15,9 @@ Každá surovina má definované prostředí a roční období. Shoda určuje pr
 | ✘ | ✔ | 30 % |
 | ✘ | ✘ | 5 % |
 
-### Tagy
+---
+
+## 2. Tagy
 
 - **Required tag** – pokud podmínka není splněna, surovina se nevyskytuje vůbec.
 - **Forbid tag** – pokud podmínka platí, surovina je zcela vyloučena.
@@ -23,7 +25,7 @@ Každá surovina má definované prostředí a roční období. Shoda určuje pr
 
 ---
 
-## 2. Kolik se toho najde
+## 3. Kolik se toho najde
 
 ### Obecné suroviny
 
@@ -48,7 +50,7 @@ Celkový počet výběrů = nálezy/hodinu × počet hodin.
 
 ---
 
-## 3. Co je nalezeno – váhy rarity
+## 4. Co je nalezeno – váhy rarity
 
 Každý výběr je vážený náhodný výběr z poolu. Základní váhy:
 
@@ -75,7 +77,7 @@ Příklad pro common (váha 1,0): 2. nález má váhu **4,0** – silný peak, b
 
 ---
 
-## 4. Kritický úspěch
+## 5. Kritický úspěch
 
 Přináší jeden výrazný nález vybraný váženým losem:
 
@@ -95,7 +97,7 @@ suroviny: max((score − 10) × 10, 10) až  max((score − 5) × 10, sur_min)
 
 ---
 
-## 5. Kritický neúspěch
+## 6. Kritický neúspěch
 
 Všechny výsledky jsou sníženy na polovinu (zaokrouhleno dolů):
 

@@ -48,14 +48,14 @@
         </tbody>
     </table>
 
-    <h3>Tagy</h3>
+    <h2>2. Tagy</h2>
     <ul class="rules-list">
         <li><strong>Required tag</strong> – pokud podmínka není splněna, surovina se nevyskytuje vůbec.</li>
         <li><strong>Forbid tag</strong> – pokud podmínka platí, surovina je zcela vyloučena.</li>
         <li><strong>Specific tag</strong> – pokud podmínka platí a prostředí souhlasí → surovina je do poolu zařazena vždy (100 %); pokud prostředí nesouhlasí → specific tag prostředí nahradí. Zároveň zvyšuje váhu výběru o násobitel <strong>1,6×</strong>.</li>
     </ul>
 
-    <h2>2. Kolik se toho najde</h2>
+    <h2>3. Kolik se toho najde</h2>
     <h3>Obecné suroviny</h3>
     <pre class="rules-code">obecné suroviny = score × počet hodin</pre>
 
@@ -74,7 +74,7 @@
     </table>
     <p>Celkový počet výběrů = nálezy/hodinu × počet hodin.</p>
 
-    <h2>3. Co je nalezeno – váhy rarity</h2>
+    <h2>4. Co je nalezeno – váhy rarity</h2>
     <table class="rules-table">
         <thead><tr><th>Rarita</th><th>Váha</th></tr></thead>
         <tbody>
@@ -99,7 +99,7 @@
     </table>
     <p>Příklad pro common (váha 1,0): 2. nález má váhu <strong>4,0</strong> – silný peak, bohaté naleziště.</p>
 
-    <h2>4. Kritický úspěch</h2>
+    <h2>5. Kritický úspěch</h2>
     <p>Přináší jeden výrazný nález vybraný váženým losem:</p>
     <table class="rules-table">
         <thead><tr><th>Nález</th><th>Váha</th></tr></thead>
@@ -113,7 +113,7 @@
     <pre class="rules-code">mana:     max((score − 10) × 5,  5)  až  max((score − 5) × 5,  mana_min)
 suroviny: max((score − 10) × 10, 10) až  max((score − 5) × 10, sur_min)</pre>
 
-    <h2>5. Kritický neúspěch</h2>
+    <h2>6. Kritický neúspěch</h2>
     <p>Všechny výsledky jsou sníženy na polovinu (zaokrouhleno dolů):</p>
     <pre class="rules-code">obecné suroviny = floor(score × hodiny / 2)
 každý konkrétní nález = floor(počet / 2)</pre>
