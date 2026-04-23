@@ -304,12 +304,18 @@ document.addEventListener("DOMContentLoaded", async () => {
     // PJ mode (v záložce Nastavení)
     const pjEnabled = document.getElementById("pjEnabled");
     const pjOptions = document.getElementById("pjOptions");
+    const pjPoolOptions = document.getElementById("pjPoolOptions");
 
     pjEnabled.addEventListener("change", () => {
         pjOptions.hidden = !pjEnabled.checked;
+        pjPoolOptions.hidden = !pjEnabled.checked;
         if (!pjEnabled.checked) {
             document.getElementById("pjMinPerHour").value = 1;
             document.getElementById("pjMaxPerHour").value = 3;
+            document.getElementById("pjBoth").value = 100;
+            document.getElementById("pjEnvOnly").value = 30;
+            document.getElementById("pjSeasonOnly").value = 30;
+            document.getElementById("pjNone").value = 5;
         }
     });
 
@@ -446,6 +452,13 @@ document.addEventListener("DOMContentLoaded", async () => {
         const baseMin = pjEnabled.checked ? (parseInt(document.getElementById("pjMinPerHour").value) || 1) : 1;
         const baseMax = pjEnabled.checked ? (parseInt(document.getElementById("pjMaxPerHour").value) || 3) : 3;
 
+        const poolChances = pjEnabled.checked ? {
+            both:       Math.min(parseInt(document.getElementById("pjBoth").value)       || 100, 100) / 100,
+            envOnly:    Math.min(parseInt(document.getElementById("pjEnvOnly").value)    || 30,  100) / 100,
+            seasonOnly: Math.min(parseInt(document.getElementById("pjSeasonOnly").value) || 30,  100) / 100,
+            none:       Math.min(parseInt(document.getElementById("pjNone").value)       || 5,   100) / 100,
+        } : DEFAULT_POOL_CHANCES;
+
         const result = generate(
             INGREDIENTS,
             data.get("environment"),
@@ -456,7 +469,8 @@ document.addEventListener("DOMContentLoaded", async () => {
             criticalFail,
             selectedTagNames,
             baseMin,
-            baseMax
+            baseMax,
+            poolChances
         );
 
         result.inputs.tags = selectedTagIds;

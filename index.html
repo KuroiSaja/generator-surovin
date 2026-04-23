@@ -53,15 +53,38 @@
 
     <h2>1. Pool – co se v okolí nachází</h2>
     <p>Každá surovina má definované prostředí a roční období. Shoda určuje pravděpodobnost zařazení do poolu:</p>
-    <table class="rules-table pool-table">
-        <thead><tr><th>Prostředí</th><th>Sezóna</th><th>Šance vstupu do poolu</th></tr></thead>
-        <tbody>
-            <tr><td class="icon-yes">✔</td><td class="icon-yes">✔</td><td>100 %</td></tr>
-            <tr><td class="icon-yes">✔</td><td class="icon-no">✘</td><td>30 %</td></tr>
-            <tr><td class="icon-no">✘</td><td class="icon-yes">✔</td><td>30 %</td></tr>
-            <tr><td class="icon-no">✘</td><td class="icon-no">✘</td><td>5 %</td></tr>
-        </tbody>
-    </table>
+    <div class="concrete-row">
+        <table class="rules-table pool-table">
+            <thead><tr><th>Prostředí</th><th>Sezóna</th><th>Šance vstupu do poolu</th></tr></thead>
+            <tbody>
+                <tr><td class="icon-yes">✔</td><td class="icon-yes">✔</td><td>100 %</td></tr>
+                <tr><td class="icon-yes">✔</td><td class="icon-no">✘</td><td>30 %</td></tr>
+                <tr><td class="icon-no">✘</td><td class="icon-yes">✔</td><td>30 %</td></tr>
+                <tr><td class="icon-no">✘</td><td class="icon-no">✘</td><td>5 %</td></tr>
+            </tbody>
+        </table>
+        <div id="pjPoolOptions" hidden>
+            <fieldset class="pj-group">
+                <legend>Šance vstupu do poolu (%)</legend>
+                <label>
+                    <span class="icon-yes">✔</span> Prostředí + <span class="icon-yes">✔</span> Sezóna
+                    <input type="number" id="pjBoth" value="100" min="0" max="100">
+                </label>
+                <label>
+                    <span class="icon-yes">✔</span> Prostředí + <span class="icon-no">✘</span> Sezóna
+                    <input type="number" id="pjEnvOnly" value="30" min="0" max="100">
+                </label>
+                <label>
+                    <span class="icon-no">✘</span> Prostředí + <span class="icon-yes">✔</span> Sezóna
+                    <input type="number" id="pjSeasonOnly" value="30" min="0" max="100">
+                </label>
+                <label>
+                    <span class="icon-no">✘</span> Prostředí + <span class="icon-no">✘</span> Sezóna
+                    <input type="number" id="pjNone" value="5" min="0" max="100">
+                </label>
+            </fieldset>
+        </div>
+    </div>
 
     <div class="section-header-inline">
         <h3>Zvláštní podmínky</h3>

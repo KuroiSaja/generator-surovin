@@ -440,6 +440,12 @@ input[type="checkbox"] {
     gap: 0.25rem;
 }
 
+.pj-group label span.icon-yes,
+.pj-group label span.icon-no {
+    font-size: 0.78rem;
+    display: inline;
+}
+
 .pj-group input[type="number"] {
     padding: 4px 6px;
     font-size: 0.9rem;
