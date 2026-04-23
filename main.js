@@ -318,6 +318,17 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
     });
 
+    const pjMin = document.getElementById("pjMinPerHour");
+    const pjMax = document.getElementById("pjMaxPerHour");
+
+    pjMin.addEventListener("input", () => {
+        if (parseInt(pjMin.value) > parseInt(pjMax.value)) pjMax.value = pjMin.value;
+    });
+
+    pjMax.addEventListener("input", () => {
+        if (parseInt(pjMax.value) < parseInt(pjMin.value)) pjMin.value = pjMax.value;
+    });
+
     // 4️⃣ Form submit
     const form = document.getElementById("generatorForm");
     
