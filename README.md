@@ -17,15 +17,9 @@ Každá surovina má definované prostředí a roční období. Shoda určuje pr
 
 ### Tagy
 
-**Required tag** – pokud podmínka není splněna, surovina se nevyskytuje vůbec.
-
-**Forbid tag** – pokud podmínka platí, surovina je zcela vyloučena.
-
-**Specific tag** – pokud podmínka platí:
-- prostředí souhlasí → surovina je do poolu zařazena vždy (100 %)
-- prostředí nesouhlasí → specific tag prostředí nahradí (surovina se stále může objevit)
-
-Specific tag zároveň zvyšuje váhu při výběru o násobitel **1,6×**.
+- **Required tag** – pokud podmínka není splněna, surovina se nevyskytuje vůbec.
+- **Forbid tag** – pokud podmínka platí, surovina je zcela vyloučena.
+- **Specific tag** – pokud podmínka platí a prostředí souhlasí → surovina je do poolu zařazena vždy (100 %); pokud prostředí nesouhlasí → specific tag prostředí nahradí. Zároveň zvyšuje váhu výběru o násobitel **1,6×**.
 
 ---
 
