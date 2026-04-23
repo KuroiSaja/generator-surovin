@@ -301,6 +301,27 @@ function renderSimpleResult(picks) {
 
 document.addEventListener("DOMContentLoaded", async () => {
 
+    // PJ mode (v záložce Nastavení)
+    const pjEnabled = document.getElementById("pjEnabled");
+    const pjOptions = document.getElementById("pjOptions");
+
+    pjEnabled.addEventListener("change", () => {
+        pjOptions.hidden = !pjEnabled.checked;
+        if (!pjEnabled.checked) {
+            document.getElementById("pjMinPerHour").value = 1;
+            document.getElementById("pjMaxPerHour").value = 3;
+        }
+    });
+
+    const pjMin = document.getElementById("pjMinPerHour");
+    const pjMax = document.getElementById("pjMaxPerHour");
+    pjMin.addEventListener("input", () => {
+        if (parseInt(pjMin.value) > parseInt(pjMax.value)) pjMax.value = pjMin.value;
+    });
+    pjMax.addEventListener("input", () => {
+        if (parseInt(pjMax.value) < parseInt(pjMin.value)) pjMin.value = pjMax.value;
+    });
+
     // Pravidla toggle – přepínání modů generátoru
     const rulesEnabled = document.getElementById("rulesEnabled");
     const generatorComplex = document.getElementById("generatorComplex");
@@ -311,6 +332,11 @@ document.addEventListener("DOMContentLoaded", async () => {
         generatorComplex.hidden = simple;
         generatorSimple.hidden  = !simple;
         document.getElementById("result").innerHTML = "";
+        pjEnabled.disabled = simple;
+        if (simple && pjEnabled.checked) {
+            pjEnabled.checked = false;
+            pjOptions.hidden = true;
+        }
     });
 
     // Záložky
@@ -366,28 +392,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         tagContainer.hidden = !tagsEnabled.checked;
     });
 
-    // 4️⃣ PJ mode
-    const pjEnabled = document.getElementById("pjEnabled");
-    const pjOptions = document.getElementById("pjOptions");
-
-    pjEnabled.addEventListener("change", () => {
-        pjOptions.hidden = !pjEnabled.checked;
-        if (!pjEnabled.checked) {
-            document.getElementById("pjMinPerHour").value = 1;
-            document.getElementById("pjMaxPerHour").value = 3;
-        }
-    });
-
-    const pjMin = document.getElementById("pjMinPerHour");
-    const pjMax = document.getElementById("pjMaxPerHour");
-
-    pjMin.addEventListener("input", () => {
-        if (parseInt(pjMin.value) > parseInt(pjMax.value)) pjMax.value = pjMin.value;
-    });
-
-    pjMax.addEventListener("input", () => {
-        if (parseInt(pjMax.value) < parseInt(pjMin.value)) pjMin.value = pjMax.value;
-    });
 
     // 4️⃣ Form submit
     const form = document.getElementById("generatorForm");

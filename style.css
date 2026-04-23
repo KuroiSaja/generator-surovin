@@ -561,6 +561,11 @@ input[type="checkbox"] {
     color: var(--ink-mid);
 }
 
+.toggle-switch:has(input:disabled) {
+    opacity: 0.4;
+    pointer-events: none;
+}
+
 .toggle-inline {
     justify-content: flex-start;
     align-self: flex-end;

@@ -36,11 +36,33 @@
 
 <div id="tab-nastaveni" class="tab-panel" hidden>
 
-    <label class="toggle-switch toggle-inline">
-        <input type="checkbox" id="rulesEnabled" checked>
-        <span class="toggle-slider"></span>
-        <span class="toggle-label">Zapnout pravidla</span>
-    </label>
+    <div class="form-section">
+        <label class="toggle-switch toggle-inline">
+            <input type="checkbox" id="rulesEnabled" checked>
+            <span class="toggle-slider"></span>
+            <span class="toggle-label">Zapnout pravidla</span>
+        </label>
+        <label class="toggle-switch toggle-inline">
+            <input type="checkbox" id="pjEnabled">
+            <span class="toggle-slider"></span>
+            <span class="toggle-label">Super PJ mode</span>
+        </label>
+    </div>
+
+    <div id="pjOptions" hidden>
+        <fieldset class="pj-group">
+            <legend>Nálezy za hodinu</legend>
+            <label>
+                Základní min
+                <input type="number" id="pjMinPerHour" value="1" min="0">
+            </label>
+            <label>
+                Základní max
+                <input type="number" id="pjMaxPerHour" value="3" min="1">
+            </label>
+            <p class="pj-hint">Za každých 5 bodů score se rozsah posune o +1</p>
+        </fieldset>
+    </div>
 
     <div id="rulesContent">
 
@@ -196,29 +218,6 @@ každý konkrétní nález = floor(počet / 2)</pre>
 
         </div>
 
-        <div class="pj-panel">
-            <div class="pj-header">
-                <span class="pj-title">Super PJ mode</span>
-                <label class="toggle-switch">
-                    <input type="checkbox" id="pjEnabled">
-                    <span class="toggle-slider"></span>
-                </label>
-            </div>
-            <div id="pjOptions" hidden>
-                <fieldset class="pj-group">
-                    <legend>Nálezy za hodinu</legend>
-                    <label>
-                        Základní min
-                        <input type="number" id="pjMinPerHour" value="1" min="0">
-                    </label>
-                    <label>
-                        Základní max
-                        <input type="number" id="pjMaxPerHour" value="3" min="1">
-                    </label>
-                    <p class="pj-hint">Za každých 5 bodů score se rozsah posune o +1</p>
-                </fieldset>
-            </div>
-        </div>
 
     </div>
     </div>
