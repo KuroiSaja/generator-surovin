@@ -17,15 +17,17 @@ Každá surovina má definované prostředí a roční období. Shoda určuje pr
 
 ### Zvláštní podmínky
 
-**Required tag** – pokud podmínka není splněna, surovina se nevyskytuje vůbec.
+Zvláštní podmínky upřesňují prostředí nad rámec základního výběru – například přítomnost vody, spáleniště nebo magické anomálie. Každá surovina může mít definováno, za jakých podmínek se vyskytuje nebo nevyskytuje.
 
-**Forbid tag** – pokud podmínka platí, surovina je zcela vyloučena.
+**Povinná podmínka** – pokud podmínka není splněna, surovina se nevyskytuje vůbec.
 
-**Specific tag** – pokud podmínka platí:
+**Zakázaná podmínka** – pokud podmínka platí, surovina je zcela vyloučena.
+
+**Specifická podmínka** – pokud podmínka platí:
 - prostředí souhlasí → surovina je do poolu zařazena vždy (100 %)
-- prostředí nesouhlasí → specific tag prostředí nahradí (surovina se stále může objevit)
+- prostředí nesouhlasí → podmínka prostředí nahradí (surovina se stále může objevit)
 
-Specific tag zároveň zvyšuje váhu při výběru o násobitel **1,6×**.
+Specifická podmínka zároveň zvyšuje váhu při výběru o násobitel **1,6×**.
 
 ---
 
