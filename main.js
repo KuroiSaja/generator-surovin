@@ -253,6 +253,13 @@ function renderResult(result) {
 
 document.addEventListener("DOMContentLoaded", async () => {
 
+    // Pravidla toggle
+    const rulesEnabled = document.getElementById("rulesEnabled");
+    const rulesContent = document.getElementById("rulesContent");
+    rulesEnabled.addEventListener("change", () => {
+        rulesContent.hidden = !rulesEnabled.checked;
+    });
+
     // Záložky
     document.querySelectorAll(".tab-btn").forEach(btn => {
         btn.addEventListener("click", () => {

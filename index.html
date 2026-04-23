@@ -36,6 +36,14 @@
 
 <div id="tab-nastaveni" class="tab-panel" hidden>
 
+    <label class="toggle-switch toggle-inline">
+        <input type="checkbox" id="rulesEnabled">
+        <span class="toggle-slider"></span>
+        <span class="toggle-label">Zapnout pravidla</span>
+    </label>
+
+    <div id="rulesContent" hidden>
+
     <h2>1. Pool – co se v okolí nachází</h2>
     <p>Každá surovina má definované prostředí a roční období. Shoda určuje pravděpodobnost zařazení do poolu:</p>
     <table class="rules-table pool-table">
@@ -120,6 +128,8 @@ suroviny: max((score − 10) × 10, 10) až  max((score − 5) × 10, sur_min)</
     <p>Všechny výsledky jsou sníženy na polovinu (zaokrouhleno dolů):</p>
     <pre class="rules-code">obecné suroviny = floor(score × hodiny / 2)
 každý konkrétní nález = floor(počet / 2)</pre>
+
+    </div>
 
 </div>
 
