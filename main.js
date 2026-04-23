@@ -308,7 +308,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     pjEnabled.addEventListener("change", () => {
         pjOptions.hidden = !pjEnabled.checked;
-        pjPoolOptions.hidden = !pjEnabled.checked;
+        pjPoolOptions.classList.toggle('pj-collapsed', !pjEnabled.checked);
         if (!pjEnabled.checked) {
             document.getElementById("pjMinPerHour").value = 1;
             document.getElementById("pjMaxPerHour").value = 3;
@@ -342,7 +342,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         if (simple && pjEnabled.checked) {
             pjEnabled.checked = false;
             pjOptions.hidden = true;
-            pjPoolOptions.hidden = true;
+            pjPoolOptions.classList.add('pj-collapsed');
         }
     });
 
