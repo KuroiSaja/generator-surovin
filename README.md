@@ -92,14 +92,10 @@ Přináší jeden výrazný nález vybraný váženým losem:
 | Abstraktní nález (mana) | 1,0 |
 | Abstraktní nález (suroviny) | 1,0 |
 
-Pro score ≤ 10 jsou obě hodnoty na minimu. Každý bod score nad 10 zvyšuje dolní hranici o 5 (mana) / 10 (suroviny); horní hranice je vždy o 25 / 50 výše:
-
-| Score | Mana | Suroviny |
-|---|---|---|
-| ≤ 10 | 5 | 10 |
-| 15 | 25–50 | 50–100 |
-| 20 | 50–75 | 100–150 |
-| 25 | 75–100 | 150–200 |
+```
+mana:     (score − 10) × 5  až  (score − 5) × 5,  nejméně 5
+suroviny: (score − 10) × 10 až  (score − 5) × 10, nejméně 10
+```
 
 ---
 
