@@ -104,7 +104,8 @@ h3 {
 .tab-nav {
     display: flex;
     gap: 4px;
-    margin-bottom: 1rem;
+    margin-bottom: 0;
+    border-bottom: 2px solid var(--border-gold);
 }
 
 .tab-btn {
@@ -115,11 +116,14 @@ h3 {
     padding: 0.45rem 1.4rem;
     background: var(--parchment-dark);
     border: 1px solid var(--border);
+    border-bottom: none;
     color: var(--ink-mid);
     cursor: pointer;
-    border-radius: 3px;
+    border-radius: 3px 3px 0 0;
     transition: background 0.15s, color 0.15s;
     outline: none;
+    position: relative;
+    bottom: -1px;
 }
 
 .tab-btn:hover {
@@ -131,10 +135,12 @@ h3 {
     background: var(--parchment);
     color: var(--accent);
     border-color: var(--border-gold);
+    border-bottom: 2px solid var(--parchment);
+    z-index: 1;
 }
 
 .tab-panel {
-    padding-top: 0;
+    padding-top: 1.5rem;
 }
 
 .tab-panel[hidden] {
