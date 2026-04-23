@@ -359,6 +359,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         generatorSimple.hidden  = !simple;
         document.getElementById("result").innerHTML = "";
         pjEnabled.disabled = simple;
+        document.getElementById("tagsEnabled").disabled = simple;
+        document.getElementById("clusteringEnabled").disabled = simple;
         if (simple && pjEnabled.checked) {
             pjEnabled.checked = false;
             pjOptions.hidden = true;
