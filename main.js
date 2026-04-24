@@ -11,6 +11,7 @@ const APP_VERSION = "v2.2";
 let INGREDIENTS = [];
 let TAGS_BY_CATEGORY = {};
 let TAG_ID_TO_NAME = {};
+let currentSurovinyTbody = null;
 
 // =========================
 // LOAD DATA
@@ -380,6 +381,22 @@ function refreshSurovinaTab() {
 // SUROVINA LIST
 // =========================
 
+function applyFilters() {
+    if (!currentSurovinyTbody) return;
+    const q      = (document.getElementById("surovina-search")?.value ?? "").toLowerCase();
+    const type   = document.getElementById("surovina-filter-type")?.value ?? "";
+    const rarity = document.getElementById("surovina-filter-rarity")?.value ?? "";
+    const env    = document.getElementById("surovina-filter-env")?.value ?? "";
+
+    for (const tr of currentSurovinyTbody.rows) {
+        const nameMatch   = !q      || tr.dataset.name.includes(q);
+        const typeMatch   = !type   || tr.dataset.type === type;
+        const rarityMatch = !rarity || tr.dataset.rarity === rarity;
+        const envMatch    = !env    || (tr.dataset.env ?? "").split("|").map(e => e.trim()).includes(env);
+        tr.hidden = !(nameMatch && typeMatch && rarityMatch && envMatch);
+    }
+}
+
 function buildSurovinaTable(container) {
     const table = document.createElement("table");
     table.id = "surovina-table";
@@ -426,42 +443,7 @@ function buildSurovinaTable(container) {
 
     table.appendChild(tbody);
     container.appendChild(table);
-
-    // Napoj filtry na aktuální tbody
-    attachFilters(tbody);
-}
-
-function attachFilters(tbody) {
-    const searchEl  = document.getElementById("surovina-search");
-    const typeEl    = document.getElementById("surovina-filter-type");
-    const rarityEl  = document.getElementById("surovina-filter-rarity");
-    const envFilter = document.getElementById("surovina-filter-env");
-
-    function applyFilters() {
-        const q      = searchEl.value.toLowerCase();
-        const type   = typeEl.value;
-        const rarity = rarityEl.value;
-        const env    = envFilter.value;
-
-        for (const tr of tbody.rows) {
-            const nameMatch   = !q      || tr.dataset.name.includes(q);
-            const typeMatch   = !type   || tr.dataset.type === type;
-            const rarityMatch = !rarity || tr.dataset.rarity === rarity;
-            const envMatch    = !env    || (tr.dataset.env ?? "").split("|").map(e => e.trim()).includes(env);
-            tr.hidden = !(nameMatch && typeMatch && rarityMatch && envMatch);
-        }
-    }
-
-    // Odstraní staré listenery nahrazením cloneNode
-    [searchEl, typeEl, rarityEl, envFilter].forEach(el => {
-        const clone = el.cloneNode(true);
-        el.parentNode.replaceChild(clone, el);
-    });
-
-    document.getElementById("surovina-search").addEventListener("input", applyFilters);
-    document.getElementById("surovina-filter-type").addEventListener("change", applyFilters);
-    document.getElementById("surovina-filter-rarity").addEventListener("change", applyFilters);
-    document.getElementById("surovina-filter-env").addEventListener("change", applyFilters);
+    currentSurovinyTbody = tbody;
 }
 
 function renderSurovinaList() {
@@ -480,6 +462,12 @@ function renderSurovinaList() {
     }
 
     buildSurovinaTable(container);
+
+    // Filtry – napojeny jednou, čtou vždy aktuální currentSurovinyTbody
+    document.getElementById("surovina-search").addEventListener("input", applyFilters);
+    document.getElementById("surovina-filter-type").addEventListener("change", applyFilters);
+    document.getElementById("surovina-filter-rarity").addEventListener("change", applyFilters);
+    document.getElementById("surovina-filter-env").addEventListener("change", applyFilters);
 
     // Tlačítka
     document.getElementById("btn-export").addEventListener("click", exportIngredients);
