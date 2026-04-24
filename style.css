@@ -173,16 +173,18 @@ h3 {
 
 .intro-todo-heading {
     font-family: 'Cinzel', serif;
-    font-size: 0.85rem;
+    font-size: 0.75rem;
     letter-spacing: 0.05em;
-    color: var(--ink-mid);
-    margin: 1.5rem 0 0.5rem;
+    color: var(--border-gold);
+    opacity: 0.6;
+    margin: 1.5rem 0 0.35rem;
 }
 
 .intro-todo {
     font-family: 'Lora', serif;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     color: var(--ink-mid);
+    opacity: 0.5;
     padding-left: 1.25rem;
     margin: 0;
     line-height: 1.8;
