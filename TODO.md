@@ -1,6 +1,6 @@
 # TODO
 
-- [ ] Práce s databází surovin a custom seznamy
+- [ ] Seznamy surovin + import/export
 - [ ] Generátor pro delší cestování / pobyt
 - [ ] Omezení podle ročních období
 - [ ] Vyhledávání konkrétních surovin
