@@ -289,6 +289,24 @@ h3 {
     color: var(--ink-dark);
 }
 
+.surovina-table th[data-sort] {
+    cursor: pointer;
+    user-select: none;
+}
+
+.surovina-table th[data-sort]:hover {
+    color: var(--ink-dark);
+}
+
+.surovina-table th[data-sort]::after {
+    content: " ⇅";
+    opacity: 0.35;
+    font-size: 0.7em;
+}
+
+.surovina-table th[data-sort-active="asc"]::after  { content: " ▲"; opacity: 0.8; }
+.surovina-table th[data-sort-active="desc"]::after { content: " ▼"; opacity: 0.8; }
+
 .surovina-table tr[data-type="rostlina"] td:first-child { color: #5a8a3c; }
 .surovina-table tr[data-type="houba"]    td:first-child { color: #9b6a2f; }
 .surovina-table tr[data-type="fauna"]    td:first-child { color: #7b3a3a; }

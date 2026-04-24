@@ -381,6 +381,48 @@ function refreshSurovinaTab() {
 // SUROVINA LIST
 // =========================
 
+// =========================
+// SORTING
+// =========================
+
+let sortCol = null;
+let sortAsc = true;
+
+const RARITY_ORDER = { common: 0, uncommon: 1, rare: 2 };
+
+function sortSuroviny(col) {
+    if (!currentSurovinyTbody) return;
+
+    if (sortCol === col) {
+        sortAsc = !sortAsc;
+    } else {
+        sortCol = col;
+        sortAsc = true;
+    }
+
+    const rows = Array.from(currentSurovinyTbody.rows);
+    rows.sort((a, b) => {
+        let av, bv;
+        if (col === "rarity") {
+            av = RARITY_ORDER[a.dataset.rarity] ?? 99;
+            bv = RARITY_ORDER[b.dataset.rarity] ?? 99;
+        } else {
+            av = (a.dataset[col] ?? "").toLowerCase();
+            bv = (b.dataset[col] ?? "").toLowerCase();
+        }
+        if (av < bv) return sortAsc ? -1 : 1;
+        if (av > bv) return sortAsc ? 1 : -1;
+        return 0;
+    });
+
+    rows.forEach(tr => currentSurovinyTbody.appendChild(tr));
+
+    // Aktualizuj indikátory v záhlaví
+    document.querySelectorAll(".surovina-table th[data-sort]").forEach(th => {
+        th.dataset.sortActive = th.dataset.sort === col ? (sortAsc ? "asc" : "desc") : "";
+    });
+}
+
 function applyFilters() {
     if (!currentSurovinyTbody) return;
     const q      = (document.getElementById("surovina-search")?.value ?? "").toLowerCase();
@@ -404,9 +446,9 @@ function buildSurovinaTable(container) {
 
     const thead = document.createElement("thead");
     thead.innerHTML = `<tr>
-        <th>Název</th>
-        <th>Typ</th>
-        <th>Rarita</th>
+        <th data-sort="name">Název</th>
+        <th data-sort="type">Typ</th>
+        <th data-sort="rarity">Rarita</th>
         <th>Prostředí</th>
         <th>Sezóna</th>
         <th>Použití</th>
@@ -444,6 +486,10 @@ function buildSurovinaTable(container) {
     table.appendChild(tbody);
     container.appendChild(table);
     currentSurovinyTbody = tbody;
+
+    table.querySelectorAll("th[data-sort]").forEach(th => {
+        th.addEventListener("click", () => sortSuroviny(th.dataset.sort));
+    });
 }
 
 function renderSurovinaList() {
