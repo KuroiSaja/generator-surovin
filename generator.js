@@ -25,6 +25,7 @@ function randomInt(min, max) {
 
 function concretePerHour(score, baseMin = 1, baseMax = 3, scoreStep = 5) {
     if (score < 5) return 0;
+    if (scoreStep === 0) return randomInt(baseMin, baseMax);
     const tier = Math.floor((score - 5) / scoreStep);
     return randomInt(baseMin + tier, baseMax + tier);
 }

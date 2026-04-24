@@ -622,19 +622,24 @@ document.addEventListener("DOMContentLoaded", async () => {
     const pjStep = document.getElementById("pjScoreStep");
 
     function updateTierPreview() {
-        const min  = Math.max(parseInt(pjMin.value)  || 1, 0);
-        const max  = Math.max(parseInt(pjMax.value)  || 3, min);
-        const step = Math.max(parseInt(pjStep.value) || 5, 1);
+        const min  = Math.max(parseInt(pjMin.value)  ?? 0, 0);
+        const max  = Math.max(parseInt(pjMax.value)  ?? 0, min);
+        const step = parseInt(pjStep.value) ?? 5;
         const preview = document.getElementById("pjTierPreview");
         if (!preview) return;
 
         let rows = `<tr><td>1–4</td><td>0</td></tr>`;
-        for (let t = 0; t < 5; t++) {
-            const lo = 5 + t * step;
-            const hi = 4 + (t + 1) * step;
-            rows += `<tr><td>${lo}–${hi}</td><td>${min + t}–${max + t}</td></tr>`;
+
+        if (step === 0) {
+            rows += `<tr><td>5+</td><td>${min}–${max}</td></tr>`;
+        } else {
+            for (let t = 0; t < 5; t++) {
+                const lo = 5 + t * step;
+                const hi = 4 + (t + 1) * step;
+                rows += `<tr><td>${lo}–${hi}</td><td>${min + t}–${max + t}</td></tr>`;
+            }
+            rows += `<tr><td>…</td><td>… +1 každých ${step} bodů</td></tr>`;
         }
-        rows += `<tr><td>…</td><td>… +1 každých ${step} bodů</td></tr>`;
 
         preview.innerHTML = `
             <table class="rules-table pj-tier-preview">
@@ -644,11 +649,15 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     pjMin.addEventListener("input", () => {
-        if (parseInt(pjMin.value) > parseInt(pjMax.value)) pjMax.value = pjMin.value;
+        const minVal = parseInt(pjMin.value);
+        const maxVal = parseInt(pjMax.value);
+        if (!isNaN(minVal) && !isNaN(maxVal) && minVal > maxVal) pjMax.value = minVal;
         updateTierPreview();
     });
     pjMax.addEventListener("input", () => {
-        if (parseInt(pjMax.value) < parseInt(pjMin.value)) pjMin.value = pjMax.value;
+        const minVal = parseInt(pjMin.value);
+        const maxVal = parseInt(pjMax.value);
+        if (!isNaN(minVal) && !isNaN(maxVal) && maxVal < minVal) pjMin.value = maxVal;
         updateTierPreview();
     });
     pjStep.addEventListener("input", updateTierPreview);
@@ -808,7 +817,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         } : DEFAULT_POOL_CHANCES;
 
         const clusteringEnabled = document.getElementById("clusteringEnabled").checked;
-        const scoreStep = pjEnabled.checked ? (Math.max(parseInt(document.getElementById("pjScoreStep").value) || 5, 1)) : 5;
+        const scoreStep = pjEnabled.checked ? Math.max(parseInt(document.getElementById("pjScoreStep").value) ?? 5, 0) : 5;
 
         const result = generate(
             INGREDIENTS,
