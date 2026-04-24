@@ -800,6 +800,10 @@ input[type="checkbox"] {
         width: 120px;
     }
 
+    #tagContainer {
+        flex-direction: column;
+    }
+
     .scroll {
         padding: 1.5rem 1.25rem;
     }
@@ -935,12 +939,19 @@ input[type="checkbox"] {
    TAGS
    ========================= */
 
+#tagContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.25rem;
+}
+
 .tag-category {
     background: rgba(176, 128, 48, 0.05);
     border: 1px solid var(--border-gold);
     border-radius: 3px;
-    margin-top: 0.5rem;
     padding: 0.5rem 0.75rem 0.75rem;
+    flex: 1 1 200px;
 }
 
 .tag-category legend {
