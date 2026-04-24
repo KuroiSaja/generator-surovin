@@ -946,6 +946,10 @@ input[type="checkbox"] {
     margin-top: 0.25rem;
 }
 
+#tagContainer[hidden] {
+    display: none;
+}
+
 .tag-category {
     background: rgba(176, 128, 48, 0.05);
     border: 1px solid var(--border-gold);
