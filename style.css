@@ -171,6 +171,27 @@ h3 {
     margin: 0 0 1.75rem;
 }
 
+.intro-modes {
+    font-family: 'Lora', serif;
+    font-size: 0.88rem;
+    color: var(--ink-dark);
+    margin: 0 0 1rem;
+}
+
+.intro-modes dt {
+    font-family: 'Cinzel', serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    color: var(--ink-mid);
+    margin-top: 0.6rem;
+}
+
+.intro-modes dd {
+    margin: 0.15rem 0 0 0;
+    line-height: 1.6;
+}
+
 .intro-todo-heading {
     font-family: 'Cinzel', serif;
     font-size: 0.75rem;
