@@ -189,6 +189,51 @@ h3 {
 }
 
 /* =========================
+   SUROVINA TOOLBAR
+   ========================= */
+
+.surovina-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+}
+
+.surovina-list-label {
+    font-family: 'Cinzel', serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.04em;
+    color: var(--ink-mid);
+}
+
+.surovina-toolbar-btns {
+    display: flex;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+}
+
+.secondary-btn {
+    font-family: 'Cinzel', serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.04em;
+    color: var(--ink-dark);
+    background: transparent;
+    border: 1px solid var(--border-gold);
+    border-radius: 3px;
+    padding: 0.3rem 0.75rem;
+    cursor: pointer;
+    transition: background 0.15s;
+    display: inline-flex;
+    align-items: center;
+}
+
+.secondary-btn:hover {
+    background: rgba(176, 128, 48, 0.1);
+}
+
+/* =========================
    SUROVINA FILTERS
    ========================= */
 

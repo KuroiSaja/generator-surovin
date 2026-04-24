@@ -302,25 +302,85 @@ function renderSimpleResult(picks) {
 }
 
 // =========================
-// SUROVINA LIST
+// IMPORT / EXPORT
 // =========================
 
-function renderSurovinaList() {
+let DEFAULT_INGREDIENTS = [];
+
+function exportIngredients() {
+    const json = JSON.stringify(INGREDIENTS, null, 2);
+    const blob = new Blob([json], { type: "application/json" });
+    const url  = URL.createObjectURL(blob);
+    const a    = document.createElement("a");
+    a.href     = url;
+    a.download = "ingredience.json";
+    a.click();
+    URL.revokeObjectURL(url);
+}
+
+function applyCustomList(data, filename) {
+    INGREDIENTS = data;
+    refreshSurovinaTab();
+
+    const label = document.getElementById("surovina-list-label");
+    if (label) label.textContent = `Vlastní seznam: ${filename}`;
+
+    const resetBtn = document.getElementById("btn-reset-list");
+    if (resetBtn) resetBtn.hidden = false;
+
+    refreshEnvSelect();
+}
+
+function resetToDefaultList() {
+    INGREDIENTS = [...DEFAULT_INGREDIENTS];
+    refreshSurovinaTab();
+
+    const label = document.getElementById("surovina-list-label");
+    if (label) label.textContent = "Výchozí seznam";
+
+    const resetBtn = document.getElementById("btn-reset-list");
+    if (resetBtn) resetBtn.hidden = true;
+
+    refreshEnvSelect();
+}
+
+function refreshEnvSelect() {
+    const envSelect = document.getElementById("environmentSelect");
+    if (!envSelect) return;
+    envSelect.innerHTML = "";
+    for (const env of extractEnvironments(INGREDIENTS)) {
+        const opt = document.createElement("option");
+        opt.value = env;
+        opt.textContent = env.charAt(0).toUpperCase() + env.slice(1);
+        envSelect.appendChild(opt);
+    }
+}
+
+function refreshSurovinaTab() {
     const container = document.getElementById("surovina-list");
     if (!container) return;
+    container.innerHTML = "";
 
-    // Naplň select prostředí
-    const envSelect = document.getElementById("surovina-filter-env");
-    if (envSelect && envSelect.options.length === 1) {
-        const envs = extractEnvironments(INGREDIENTS);
-        for (const env of envs) {
+    // Reset env filter options
+    const envFilter = document.getElementById("surovina-filter-env");
+    if (envFilter) {
+        envFilter.innerHTML = '<option value="">Všechna prostředí</option>';
+        for (const env of extractEnvironments(INGREDIENTS)) {
             const opt = document.createElement("option");
             opt.value = env;
             opt.textContent = env.charAt(0).toUpperCase() + env.slice(1);
-            envSelect.appendChild(opt);
+            envFilter.appendChild(opt);
         }
     }
 
+    buildSurovinaTable(container);
+}
+
+// =========================
+// SUROVINA LIST
+// =========================
+
+function buildSurovinaTable(container) {
     const table = document.createElement("table");
     table.id = "surovina-table";
     table.className = "surovina-table";
@@ -367,7 +427,11 @@ function renderSurovinaList() {
     table.appendChild(tbody);
     container.appendChild(table);
 
-    // Filtry
+    // Napoj filtry na aktuální tbody
+    attachFilters(tbody);
+}
+
+function attachFilters(tbody) {
     const searchEl  = document.getElementById("surovina-search");
     const typeEl    = document.getElementById("surovina-filter-type");
     const rarityEl  = document.getElementById("surovina-filter-rarity");
@@ -388,10 +452,56 @@ function renderSurovinaList() {
         }
     }
 
-    searchEl.addEventListener("input", applyFilters);
-    typeEl.addEventListener("change", applyFilters);
-    rarityEl.addEventListener("change", applyFilters);
-    envFilter.addEventListener("change", applyFilters);
+    // Odstraní staré listenery nahrazením cloneNode
+    [searchEl, typeEl, rarityEl, envFilter].forEach(el => {
+        const clone = el.cloneNode(true);
+        el.parentNode.replaceChild(clone, el);
+    });
+
+    document.getElementById("surovina-search").addEventListener("input", applyFilters);
+    document.getElementById("surovina-filter-type").addEventListener("change", applyFilters);
+    document.getElementById("surovina-filter-rarity").addEventListener("change", applyFilters);
+    document.getElementById("surovina-filter-env").addEventListener("change", applyFilters);
+}
+
+function renderSurovinaList() {
+    const container = document.getElementById("surovina-list");
+    if (!container) return;
+
+    // Naplň select prostředí
+    const envFilter = document.getElementById("surovina-filter-env");
+    if (envFilter && envFilter.options.length === 1) {
+        for (const env of extractEnvironments(INGREDIENTS)) {
+            const opt = document.createElement("option");
+            opt.value = env;
+            opt.textContent = env.charAt(0).toUpperCase() + env.slice(1);
+            envFilter.appendChild(opt);
+        }
+    }
+
+    buildSurovinaTable(container);
+
+    // Tlačítka
+    document.getElementById("btn-export").addEventListener("click", exportIngredients);
+
+    document.getElementById("surovina-import").addEventListener("change", e => {
+        const file = e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = ev => {
+            try {
+                const data = JSON.parse(ev.target.result);
+                if (!Array.isArray(data)) throw new Error("Soubor musí být pole.");
+                applyCustomList(data, file.name);
+            } catch (err) {
+                alert("Chyba při načítání souboru: " + err.message);
+            }
+            e.target.value = "";
+        };
+        reader.readAsText(file);
+    });
+
+    document.getElementById("btn-reset-list").addEventListener("click", resetToDefaultList);
 }
 
 // =========================
@@ -478,6 +588,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         loadIngredients(),
         loadTags()
     ]);
+    DEFAULT_INGREDIENTS = [...INGREDIENTS];
 
     // 2️⃣ Naplň prostředí do selectu
     const envSelect = document.getElementById("environmentSelect");

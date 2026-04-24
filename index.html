@@ -366,6 +366,17 @@ každý konkrétní nález = počet ÷ 2</pre>
         </div>
 
         <div id="tab-suroviny" class="tab-panel" hidden>
+            <div class="surovina-toolbar">
+                <span id="surovina-list-label" class="surovina-list-label">Výchozí seznam</span>
+                <div class="surovina-toolbar-btns">
+                    <button type="button" class="secondary-btn" id="btn-export">Exportovat</button>
+                    <label class="secondary-btn" id="btn-import-label">
+                        Importovat
+                        <input type="file" id="surovina-import" accept=".json" hidden>
+                    </label>
+                    <button type="button" class="secondary-btn" id="btn-reset-list" hidden>Obnovit výchozí</button>
+                </div>
+            </div>
             <div class="surovina-filters">
                 <input type="search" id="surovina-search" placeholder="Hledat název…">
                 <select id="surovina-filter-type">
