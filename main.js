@@ -613,17 +613,47 @@ document.addEventListener("DOMContentLoaded", async () => {
             document.getElementById("pjCritRare").value = 0.25;
             document.getElementById("pjCritMana").value = 1;
             document.getElementById("pjCritSuroviny").value = 1;
+            document.getElementById("pjScoreStep").value = 5;
         }
     });
 
-    const pjMin = document.getElementById("pjMinPerHour");
-    const pjMax = document.getElementById("pjMaxPerHour");
+    const pjMin  = document.getElementById("pjMinPerHour");
+    const pjMax  = document.getElementById("pjMaxPerHour");
+    const pjStep = document.getElementById("pjScoreStep");
+
+    function updateTierPreview() {
+        const min  = Math.max(parseInt(pjMin.value)  || 1, 0);
+        const max  = Math.max(parseInt(pjMax.value)  || 3, min);
+        const step = Math.max(parseInt(pjStep.value) || 5, 1);
+        const preview = document.getElementById("pjTierPreview");
+        if (!preview) return;
+
+        let rows = `<tr><td>1–4</td><td>0</td></tr>`;
+        for (let t = 0; t < 5; t++) {
+            const lo = 5 + t * step;
+            const hi = 4 + (t + 1) * step;
+            rows += `<tr><td>${lo}–${hi}</td><td>${min + t}–${max + t}</td></tr>`;
+        }
+        rows += `<tr><td>…</td><td>… +1 každých ${step} bodů</td></tr>`;
+
+        preview.innerHTML = `
+            <table class="rules-table pj-tier-preview">
+                <thead><tr><th>Score</th><th>Nálezy / hod.</th></tr></thead>
+                <tbody>${rows}</tbody>
+            </table>`;
+    }
+
     pjMin.addEventListener("input", () => {
         if (parseInt(pjMin.value) > parseInt(pjMax.value)) pjMax.value = pjMin.value;
+        updateTierPreview();
     });
     pjMax.addEventListener("input", () => {
         if (parseInt(pjMax.value) < parseInt(pjMin.value)) pjMin.value = pjMax.value;
+        updateTierPreview();
     });
+    pjStep.addEventListener("input", updateTierPreview);
+
+    pjEnabled.addEventListener("change", () => { if (pjEnabled.checked) updateTierPreview(); });
 
     // Pravidla toggle – přepínání modů generátoru
     const rulesEnabled = document.getElementById("rulesEnabled");
@@ -778,6 +808,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         } : DEFAULT_POOL_CHANCES;
 
         const clusteringEnabled = document.getElementById("clusteringEnabled").checked;
+        const scoreStep = pjEnabled.checked ? (Math.max(parseInt(document.getElementById("pjScoreStep").value) || 5, 1)) : 5;
 
         const result = generate(
             INGREDIENTS,
@@ -793,7 +824,8 @@ document.addEventListener("DOMContentLoaded", async () => {
             poolChances,
             rarityWeights,
             critWeights,
-            clusteringEnabled
+            clusteringEnabled,
+            scoreStep
         );
 
         result.inputs.tags = selectedTagIds;

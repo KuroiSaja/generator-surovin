@@ -23,9 +23,9 @@ function randomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-function concretePerHour(score, baseMin = 1, baseMax = 3) {
+function concretePerHour(score, baseMin = 1, baseMax = 3, scoreStep = 5) {
     if (score < 5) return 0;
-    const tier = Math.floor((score - 5) / 5);
+    const tier = Math.floor((score - 5) / scoreStep);
     return randomInt(baseMin + tier, baseMax + tier);
 }
 
@@ -222,7 +222,7 @@ function pickFromPool(pool, total, selectedTags, rarityWeights = null, clusterin
 // GENERATION
 // =========================
 
-function generate(ingredients, environment, season, score, hours, critical, criticalFail, selectedTags, baseMin = 1, baseMax = 3, poolChances = DEFAULT_POOL_CHANCES, rarityWeights = null, critWeights = null, clusteringEnabled = true) {
+function generate(ingredients, environment, season, score, hours, critical, criticalFail, selectedTags, baseMin = 1, baseMax = 3, poolChances = DEFAULT_POOL_CHANCES, rarityWeights = null, critWeights = null, clusteringEnabled = true, scoreStep = 5) {
 
     const result = {
         inputs: {
@@ -240,7 +240,7 @@ function generate(ingredients, environment, season, score, hours, critical, crit
 
     // ---- základní generace ----
     const pool = buildPool(ingredients, environment, season, selectedTags, poolChances);
-    const totalPicks = concretePerHour(score, baseMin, baseMax) * hours;
+    const totalPicks = concretePerHour(score, baseMin, baseMax, scoreStep) * hours;
     const picks = pickFromPool(pool, totalPicks, selectedTags, rarityWeights, clusteringEnabled);
 
     for (const row of picks) {

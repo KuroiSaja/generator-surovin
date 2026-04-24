@@ -754,6 +754,22 @@ input[type="checkbox"] {
     gap: 1rem;
 }
 
+.pj-options-inner {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+}
+
+.pj-tier-preview {
+    margin: 0;
+    white-space: nowrap;
+}
+
+.pj-tier-preview th,
+.pj-tier-preview td {
+    padding: 0.2rem 0.5rem;
+}
+
 #pjPoolOptions .pj-group input[type="number"],
 #pjRarityOptions .pj-group input[type="number"],
 #pjCritOptions .pj-group input[type="number"],

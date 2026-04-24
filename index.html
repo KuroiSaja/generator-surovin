@@ -202,7 +202,7 @@ obecné suroviny = score × počet hodin</pre>
                             </tr>
                         </tbody>
                     </table>
-                    <div id="pjOptions" hidden>
+                    <div id="pjOptions" hidden class="pj-options-inner">
                         <fieldset class="pj-group">
                             <legend>Nálezy za hodinu</legend>
                             <label>
@@ -213,7 +213,12 @@ obecné suroviny = score × počet hodin</pre>
                                 Základní max
                                 <input type="number" id="pjMaxPerHour" value="3" min="1">
                             </label>
+                            <label>
+                                Krok score
+                                <input type="number" id="pjScoreStep" value="5" min="1">
+                            </label>
                         </fieldset>
+                        <div id="pjTierPreview"></div>
                     </div>
                 </div>
                 <pre class="rules-code">celkový počet nálezů = nálezy za hodinu × počet hodin</pre>
