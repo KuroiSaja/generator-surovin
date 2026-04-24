@@ -425,8 +425,10 @@ h3 {
 @media (max-width: 600px) {
     .surovina-table th:nth-child(4),
     .surovina-table th:nth-child(5),
+    .surovina-table th:nth-child(6),
     .surovina-table td:nth-child(4),
-    .surovina-table td:nth-child(5) {
+    .surovina-table td:nth-child(5),
+    .surovina-table td:nth-child(6) {
         display: none;
     }
 }
