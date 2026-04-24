@@ -188,6 +188,56 @@ h3 {
     line-height: 1.8;
 }
 
+/* =========================
+   SUROVINA TABLE
+   ========================= */
+
+.surovina-table {
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 0.88rem;
+    margin-top: 0.5rem;
+}
+
+.surovina-table th {
+    font-family: 'Cinzel', serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--ink-mid);
+    border-bottom: 1px solid var(--border-gold);
+    padding: 0.4rem 0.6rem;
+    text-align: left;
+    background: rgba(176, 128, 48, 0.06);
+}
+
+.surovina-table td {
+    padding: 0.35rem 0.6rem;
+    border-bottom: 1px solid rgba(176, 128, 48, 0.15);
+    vertical-align: top;
+    color: var(--ink-dark);
+}
+
+.surovina-table tr[data-type="rostlina"] td:first-child { color: #5a8a3c; }
+.surovina-table tr[data-type="houba"]    td:first-child { color: #9b6a2f; }
+.surovina-table tr[data-type="fauna"]    td:first-child { color: #7b3a3a; }
+.surovina-table tr[data-type="nerost"]   td:first-child { color: #4a6a8a; }
+
+.surovina-table .usage-cell {
+    font-style: italic;
+    color: var(--ink-mid);
+    font-size: 0.82rem;
+}
+
+@media (max-width: 600px) {
+    .surovina-table th:nth-child(4),
+    .surovina-table th:nth-child(5),
+    .surovina-table td:nth-child(4),
+    .surovina-table td:nth-child(5) {
+        display: none;
+    }
+}
+
 .intro-link {
     font-family: 'Cinzel', serif;
     font-size: 0.8rem;

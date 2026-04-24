@@ -302,6 +302,56 @@ function renderSimpleResult(picks) {
 }
 
 // =========================
+// SUROVINA LIST
+// =========================
+
+function renderSurovinaList() {
+    const container = document.getElementById("surovina-list");
+    if (!container) return;
+
+    const table = document.createElement("table");
+    table.className = "surovina-table";
+
+    const thead = document.createElement("thead");
+    thead.innerHTML = `<tr>
+        <th>Název</th>
+        <th>Typ</th>
+        <th>Rarita</th>
+        <th>Prostředí</th>
+        <th>Sezóna</th>
+        <th>Použití</th>
+    </tr>`;
+    table.appendChild(thead);
+
+    const tbody = document.createElement("tbody");
+
+    for (const row of INGREDIENTS) {
+        const tr = document.createElement("tr");
+        if (row.type) tr.dataset.type = row.type;
+
+        const seasons = row.season
+            ? row.season.split("|").map(s => s.trim()).join(", ")
+            : "—";
+        const envs = row.environment
+            ? row.environment.split("|").map(e => e.trim()).join(", ")
+            : "—";
+
+        tr.innerHTML = `
+            <td><strong>${row.name ?? "—"}</strong></td>
+            <td>${row.type ?? "—"}</td>
+            <td>${row.rarity ?? "—"}</td>
+            <td>${envs}</td>
+            <td>${seasons}</td>
+            <td class="usage-cell">${row.usage ?? "—"}</td>
+        `;
+        tbody.appendChild(tr);
+    }
+
+    table.appendChild(tbody);
+    container.appendChild(table);
+}
+
+// =========================
 // FORM HANDLER
 // =========================
 
@@ -413,8 +463,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
 
-    // 3️⃣ Tagy
+    // 3️⃣ Tagy + seznam surovin
     renderTags();
+    renderSurovinaList();
 
     const tagsEnabled = document.getElementById("tagsEnabled");
     const tagContainer = document.getElementById("tagContainer");
