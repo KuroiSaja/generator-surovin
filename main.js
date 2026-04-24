@@ -303,6 +303,44 @@ function renderSimpleResult(picks) {
 }
 
 // =========================
+// SUROVINA MODAL
+// =========================
+
+function openSurovinaModal(row) {
+    const modal   = document.getElementById("surovina-modal");
+    const content = document.getElementById("modal-content");
+
+    const fmt = v => (v === null || v === undefined || v === "") ? "—" : v;
+    const fmtPipe = v => v ? String(v).split("|").map(s => s.trim()).join(", ") : "—";
+
+    content.innerHTML = `
+        <h2 class="modal-title" data-type="${row.type ?? ""}">${row.name ?? "—"}</h2>
+        <dl class="modal-dl">
+            <dt>Typ</dt>           <dd>${fmt(row.type)}</dd>
+            <dt>Rarita</dt>        <dd>${fmt(row.rarity)}</dd>
+            <dt>Prostředí</dt>     <dd>${fmtPipe(row.environment)}</dd>
+            <dt>Sezóna</dt>        <dd>${fmtPipe(row.season)}</dd>
+            <dt>Obtížnost</dt>     <dd>${fmt(row.obtiznost)}</dd>
+            <dt>Suroviny</dt>      <dd>${fmt(row.suroviny)}</dd>
+            <dt>Mana</dt>          <dd>${fmt(row.mana)}</dd>
+            <dt>Povinný tag</dt>   <dd>${fmt(row["required tag"])}</dd>
+            <dt>Zakázaný tag</dt>  <dd>${fmt(row["forbid tag"])}</dd>
+            <dt>Specifický tag</dt><dd>${fmt(row["specific tag"])}</dd>
+            <dt>Použití</dt>       <dd class="modal-usage">${fmt(row.usage)}</dd>
+        </dl>
+    `;
+
+    modal.hidden = false;
+}
+
+function initModal() {
+    const modal = document.getElementById("surovina-modal");
+    document.getElementById("modal-close").addEventListener("click", () => { modal.hidden = true; });
+    modal.addEventListener("click", e => { if (e.target === modal) modal.hidden = true; });
+    document.addEventListener("keydown", e => { if (e.key === "Escape") modal.hidden = true; });
+}
+
+// =========================
 // IMPORT / EXPORT
 // =========================
 
@@ -480,6 +518,8 @@ function buildSurovinaTable(container) {
             <td>${seasons}</td>
             <td class="usage-cell">${row.usage ?? "—"}</td>
         `;
+        tr.style.cursor = "pointer";
+        tr.addEventListener("click", () => openSurovinaModal(row));
         tbody.appendChild(tr);
     }
 
@@ -651,9 +691,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
 
-    // 3️⃣ Tagy + seznam surovin
+    // 3️⃣ Tagy + seznam surovin + modal
     renderTags();
     renderSurovinaList();
+    initModal();
 
     const tagsEnabled = document.getElementById("tagsEnabled");
     const tagContainer = document.getElementById("tagContainer");
