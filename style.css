@@ -189,6 +189,32 @@ h3 {
 }
 
 /* =========================
+   SUROVINA FILTERS
+   ========================= */
+
+.surovina-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.surovina-filters input[type="search"],
+.surovina-filters select {
+    font-family: 'Lora', serif;
+    font-size: 0.88rem;
+    color: var(--ink-dark);
+    background: var(--parchment-light);
+    border: 1px solid var(--border-gold);
+    border-radius: 3px;
+    padding: 0.3rem 0.5rem;
+}
+
+.surovina-filters input[type="search"] {
+    flex: 1 1 160px;
+}
+
+/* =========================
    SUROVINA TABLE
    ========================= */
 

@@ -309,7 +309,20 @@ function renderSurovinaList() {
     const container = document.getElementById("surovina-list");
     if (!container) return;
 
+    // Naplň select prostředí
+    const envSelect = document.getElementById("surovina-filter-env");
+    if (envSelect && envSelect.options.length === 1) {
+        const envs = extractEnvironments(INGREDIENTS);
+        for (const env of envs) {
+            const opt = document.createElement("option");
+            opt.value = env;
+            opt.textContent = env.charAt(0).toUpperCase() + env.slice(1);
+            envSelect.appendChild(opt);
+        }
+    }
+
     const table = document.createElement("table");
+    table.id = "surovina-table";
     table.className = "surovina-table";
 
     const thead = document.createElement("thead");
@@ -324,10 +337,14 @@ function renderSurovinaList() {
     table.appendChild(thead);
 
     const tbody = document.createElement("tbody");
+    tbody.id = "surovina-tbody";
 
     for (const row of INGREDIENTS) {
         const tr = document.createElement("tr");
         if (row.type) tr.dataset.type = row.type;
+        if (row.rarity) tr.dataset.rarity = row.rarity;
+        if (row.environment) tr.dataset.env = row.environment;
+        tr.dataset.name = (row.name ?? "").toLowerCase();
 
         const seasons = row.season
             ? row.season.split("|").map(s => s.trim()).join(", ")
@@ -349,6 +366,32 @@ function renderSurovinaList() {
 
     table.appendChild(tbody);
     container.appendChild(table);
+
+    // Filtry
+    const searchEl  = document.getElementById("surovina-search");
+    const typeEl    = document.getElementById("surovina-filter-type");
+    const rarityEl  = document.getElementById("surovina-filter-rarity");
+    const envFilter = document.getElementById("surovina-filter-env");
+
+    function applyFilters() {
+        const q      = searchEl.value.toLowerCase();
+        const type   = typeEl.value;
+        const rarity = rarityEl.value;
+        const env    = envFilter.value;
+
+        for (const tr of tbody.rows) {
+            const nameMatch   = !q      || tr.dataset.name.includes(q);
+            const typeMatch   = !type   || tr.dataset.type === type;
+            const rarityMatch = !rarity || tr.dataset.rarity === rarity;
+            const envMatch    = !env    || (tr.dataset.env ?? "").split("|").map(e => e.trim()).includes(env);
+            tr.hidden = !(nameMatch && typeMatch && rarityMatch && envMatch);
+        }
+    }
+
+    searchEl.addEventListener("input", applyFilters);
+    typeEl.addEventListener("change", applyFilters);
+    rarityEl.addEventListener("change", applyFilters);
+    envFilter.addEventListener("change", applyFilters);
 }
 
 // =========================

@@ -366,6 +366,25 @@ každý konkrétní nález = počet ÷ 2</pre>
         </div>
 
         <div id="tab-suroviny" class="tab-panel" hidden>
+            <div class="surovina-filters">
+                <input type="search" id="surovina-search" placeholder="Hledat název…">
+                <select id="surovina-filter-type">
+                    <option value="">Všechny typy</option>
+                    <option value="rostlina">Rostlina</option>
+                    <option value="houba">Houba</option>
+                    <option value="fauna">Fauna</option>
+                    <option value="nerost">Nerost</option>
+                </select>
+                <select id="surovina-filter-rarity">
+                    <option value="">Všechny rarity</option>
+                    <option value="common">Common</option>
+                    <option value="uncommon">Uncommon</option>
+                    <option value="rare">Rare</option>
+                </select>
+                <select id="surovina-filter-env">
+                    <option value="">Všechna prostředí</option>
+                </select>
+            </div>
             <div id="surovina-list"></div>
         </div>
 
